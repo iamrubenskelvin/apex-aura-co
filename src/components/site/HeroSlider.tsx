@@ -36,7 +36,7 @@ export function HeroSlider() {
 
   const onTouchEnd = (e: React.TouchEvent) => {
     if (touchX.current === null) return;
-    const delta = e.changedTouches[0].clientX - touchX.current;
+    const delta = e.changedTouches[0]!.clientX - touchX.current;
     if (Math.abs(delta) > 50) {
       setIndex((i) => (i + (delta < 0 ? 1 : slides.length - 1)) % slides.length);
     }
@@ -48,7 +48,7 @@ export function HeroSlider() {
       className="relative min-h-[86vh] overflow-hidden"
       aria-roledescription="carrossel"
       aria-label="Campanhas em destaque"
-      onTouchStart={(e) => (touchX.current = e.touches[0].clientX)}
+      onTouchStart={(e) => (touchX.current = e.touches[0]!.clientX)}
       onTouchEnd={onTouchEnd}
     >
       {slides.map((slide, i) => (
@@ -73,25 +73,25 @@ export function HeroSlider() {
       <div className="relative mx-auto flex min-h-[86vh] max-w-7xl items-center px-5 py-24 lg:px-8">
         <div key={index} className="max-w-2xl">
           <span className="inline-flex animate-[fade-up_0.6s_ease-out_both] items-center gap-2 rounded-full border border-primary/40 bg-primary/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-primary">
-            {slides[index].eyebrow}
+            {slides[index]!.eyebrow}
           </span>
 
           <h1
             className="text-display mt-6 text-5xl sm:text-6xl lg:text-7xl"
             style={{ animation: "fade-up 0.7s cubic-bezier(0.16,1,0.3,1) 80ms both" }}
           >
-            {slides[index].title[0]}
+            {slides[index]!.title[0]}
             <br />
-            {slides[index].title[1]}
+            {slides[index]!.title[1]}
             <br />
-            <span className="text-primary">{slides[index].title[2]}</span>
+            <span className="text-primary">{slides[index]!.title[2]}</span>
           </h1>
 
           <p
             className="mt-6 max-w-md text-base leading-relaxed text-muted-foreground sm:text-lg"
             style={{ animation: "fade-up 0.7s cubic-bezier(0.16,1,0.3,1) 160ms both" }}
           >
-            {slides[index].subtitle}
+            {slides[index]!.subtitle}
           </p>
 
           <div
