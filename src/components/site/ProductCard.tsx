@@ -28,24 +28,28 @@ export function ProductCard({ product, index = 0 }: { product: Product; index?: 
       className="surface-card group flex h-full flex-col overflow-hidden p-4 sm:p-5"
       style={{ animation: `fade-up 0.6s cubic-bezier(0.16,1,0.3,1) ${index * 70}ms both` }}
     >
-      <Link
-        to="/produtos/$slug"
-        params={{ slug: productSlug(product) }}
-        aria-label={`Ver ${product.name}`}
-        className="relative mb-5 block aspect-square overflow-hidden rounded-xl bg-surface-2">
+      <div className="relative mb-5 aspect-square overflow-hidden rounded-xl bg-surface-2">
         {!loaded && <div className="skeleton absolute inset-0" aria-hidden="true" />}
-        <img
-          src={product.image}
-          alt={`${product.name} — ${product.brand}`}
-          width={800}
-          height={800}
-          loading="lazy"
-          decoding="async"
-          onLoad={() => setLoaded(true)}
-          className={`h-full w-full object-contain p-4 transition-all duration-700 group-hover:scale-110 ${
-            loaded ? "opacity-100" : "opacity-0"
-          }`}
-        />
+        <Link
+          to="/produtos/$slug"
+          params={{ slug: productSlug(product) }}
+          aria-label={`Ver ${product.name}`}
+          className="block h-full w-full"
+        >
+          <img
+            src={product.image}
+            alt={`${product.name} — ${product.brand}`}
+            width={800}
+            height={800}
+            loading="lazy"
+            decoding="async"
+            onLoad={() => setLoaded(true)}
+            className={`h-full w-full object-contain p-4 transition-all duration-700 group-hover:scale-110 ${
+              loaded ? "opacity-100" : "opacity-0"
+            }`}
+          />
+        </Link>
+
 
         <div className="absolute left-3 top-3 flex flex-col gap-2">
           {product.badge && (
