@@ -88,7 +88,7 @@ export function BuyBox({
   useEffect(() => {
     const el = buyRef.current;
     if (!el || typeof IntersectionObserver === "undefined") return;
-    const obs = new IntersectionObserver(([entry]) => setShowSticky(!entry.isIntersecting), {
+    const obs = new IntersectionObserver(([entry]) => setShowSticky(!(entry?.isIntersecting ?? true)), {
       threshold: 0,
     });
     obs.observe(el);

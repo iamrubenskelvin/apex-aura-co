@@ -35,9 +35,9 @@ export type ProductReview = {
   initials: string;
   rating: number;
   date: string;
-  title?: string;
+  title?: string | undefined;
   text: string;
-  variant?: string;
+  variant?: string | undefined;
   verified: boolean;
   photos?: string[];
 };
@@ -55,7 +55,7 @@ export type ProductDetail = {
     differentials: string[];
   };
   /** porção de referência da tabela nutricional */
-  servingLabel?: string;
+  servingLabel?: string | undefined;
   nutrition?: NutritionRow[];
   aminoAcids?: AminoRow[];
   ingredients?: string;

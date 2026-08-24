@@ -71,7 +71,7 @@ export function Nutrition({
   aminos,
 }: {
   rows?: ProductDetail["nutrition"];
-  serving?: string;
+  serving?: string | undefined;
   aminos?: ProductDetail["aminoAcids"];
 }) {
   if (!rows || rows.length === 0) return null;
@@ -140,11 +140,11 @@ export function Composition({
   warnings,
   storage,
 }: {
-  ingredients?: string;
-  allergens?: string[];
-  usage?: string;
-  warnings?: string[];
-  storage?: string;
+  ingredients?: string | undefined;
+  allergens?: string[] | undefined;
+  usage?: string | undefined;
+  warnings?: string[] | undefined;
+  storage?: string | undefined;
 }) {
   if (!ingredients && !usage && !warnings?.length) return null;
   return (
