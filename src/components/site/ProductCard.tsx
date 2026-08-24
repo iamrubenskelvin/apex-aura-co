@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { Link } from "@tanstack/react-router";
 import { Heart, ShoppingCart, Star } from "lucide-react";
 import { brl, pixPrice, type Product } from "@/data/products";
+import { productSlug } from "@/data/product-details";
 import { useCart } from "./cart";
 
 export function ProductCard({ product, index = 0 }: { product: Product; index?: number }) {
@@ -10,7 +12,13 @@ export function ProductCard({ product, index = 0 }: { product: Product; index?: 
   const fav = wishlist.includes(product.id);
 
   const handleAdd = () => {
-    add(product.id);
+    add({
+      productId: product.id,
+      name: product.name,
+      image: product.image,
+      price: product.price,
+      qty: 1,
+    });
     setAdded(true);
     window.setTimeout(() => setAdded(false), 1400);
   };
@@ -20,7 +28,11 @@ export function ProductCard({ product, index = 0 }: { product: Product; index?: 
       className="surface-card group flex h-full flex-col overflow-hidden p-4 sm:p-5"
       style={{ animation: `fade-up 0.6s cubic-bezier(0.16,1,0.3,1) ${index * 70}ms both` }}
     >
-      <div className="relative mb-5 aspect-square overflow-hidden rounded-xl bg-surface-2">
+      <Link
+        to="/produtos/$slug"
+        params={{ slug: productSlug(product) }}
+        aria-label={`Ver ${product.name}`}
+        className="relative mb-5 block aspect-square overflow-hidden rounded-xl bg-surface-2">
         {!loaded && <div className="skeleton absolute inset-0" aria-hidden="true" />}
         <img
           src={product.image}
@@ -61,7 +73,15 @@ export function ProductCard({ product, index = 0 }: { product: Product; index?: 
       </div>
 
       <p className="text-xs font-semibold uppercase tracking-widest text-primary">{product.brand}</p>
-      <h3 className="mt-2 min-w-0 text-base font-semibold leading-snug">{product.name}</h3>
+      <h3 className="mt-2 min-w-0 text-base font-semibold leading-snug">
+        <Link
+          to="/produtos/$slug"
+          params={{ slug: productSlug(product) }}
+          className="transition-colors hover:text-primary"
+        >
+          {product.name}
+        </Link>
+      </h3>
 
       <div className="mt-2 flex items-center gap-1.5 text-xs text-muted-foreground">
         <span className="flex" aria-hidden="true">

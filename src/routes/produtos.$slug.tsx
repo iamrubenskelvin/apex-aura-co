@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ChevronRight, PackageX } from "lucide-react";
 import { brl, products, type Product } from "@/data/products";
-import { getProductDetail, productBySlug, productSlug } from "@/data/product-details";
+import { getProductDetail, productBySlug } from "@/data/product-details";
 import { useCart } from "@/components/site/cart";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
@@ -252,5 +252,3 @@ function ProductPage() {
     </div>
   );
 }
-
-export const allProductSlugs = products.map(productSlug);

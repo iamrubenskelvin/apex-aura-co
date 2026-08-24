@@ -2,19 +2,20 @@ import { useEffect, useState } from "react";
 import { Heart, Menu, Search, ShoppingBag, User, X } from "lucide-react";
 import { useCart } from "./cart";
 import { SmartSearch } from "./SmartSearch";
+import { MiniCart } from "./MiniCart";
 
 const nav = [
-  { label: "Início", href: "#topo" },
-  { label: "Suplementos", href: "#produtos" },
-  { label: "Objetivos", href: "#categorias" },
-  { label: "Marcas", href: "#marcas" },
-  { label: "Promoções", href: "#ofertas" },
-  { label: "Blog", href: "#newsletter" },
-  { label: "Contato", href: "#rodape" },
+  { label: "Início", href: "/#topo" },
+  { label: "Suplementos", href: "/#produtos" },
+  { label: "Objetivos", href: "/#categorias" },
+  { label: "Marcas", href: "/#marcas" },
+  { label: "Promoções", href: "/#ofertas" },
+  { label: "Blog", href: "/#newsletter" },
+  { label: "Contato", href: "/#rodape" },
 ];
 
 export function Header() {
-  const { count, wishlist } = useCart();
+  const { count, wishlist, setOpen: setCartOpen } = useCart();
   const [open, setOpen] = useState(false);
   const [mobileSearch, setMobileSearch] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -121,6 +122,7 @@ export function Header() {
               )}
             </button>
             <button
+              onClick={() => setCartOpen(true)}
               className="relative grid h-10 w-10 place-items-center rounded-full text-foreground transition-all hover:scale-110 hover:bg-surface"
               aria-label={`Carrinho com ${count} itens`}
             >
@@ -165,6 +167,7 @@ export function Header() {
           </div>
         </div>
       )}
+      <MiniCart />
     </header>
   );
 }
