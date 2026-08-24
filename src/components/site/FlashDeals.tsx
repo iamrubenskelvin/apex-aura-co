@@ -90,7 +90,9 @@ export function FlashDeals() {
                 </div>
 
                 <button
-                  onClick={() => add(p.id)}
+                  onClick={() =>
+                    add({ productId: p.id, name: p.name, image: p.image, price: p.price, qty: 1 })
+                  }
                   className="btn-base btn-primary mt-4 w-full px-5 py-3 text-sm"
                 >
                   Aproveitar oferta

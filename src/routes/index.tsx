@@ -8,7 +8,6 @@ import {
   Truck,
 } from "lucide-react";
 import { bestSellers, categories, featured } from "@/data/products";
-import { CartProvider } from "@/components/site/cart";
 import { Header } from "@/components/site/Header";
 import { HeroSlider } from "@/components/site/HeroSlider";
 import { ProductCard } from "@/components/site/ProductCard";
@@ -51,7 +50,7 @@ const benefits = [
 
 function Home() {
   return (
-    <CartProvider>
+    <>
       <div className="min-h-screen bg-background">
         <Header />
 
@@ -198,6 +197,6 @@ function Home() {
 
         <Footer />
       </div>
-    </CartProvider>
+    </>
   );
 }

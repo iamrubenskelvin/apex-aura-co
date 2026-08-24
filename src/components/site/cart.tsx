@@ -15,8 +15,8 @@ export type CartLine = {
   image: string;
   price: number;
   qty: number;
-  variant?: string;
-  sku?: string;
+  variant?: string | undefined;
+  sku?: string | undefined;
 };
 
 type CartContextValue = {
