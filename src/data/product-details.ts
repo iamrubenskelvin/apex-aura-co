@@ -276,7 +276,7 @@ export const productDetails: Record<string, ProductDetail> = {
     ],
     ingredients:
       "Proteína isolada do soro do leite, cacau alcalino, aroma idêntico ao natural, espessante goma xantana, blend enzimático (protease, lactase), edulcorantes sucralose e glicosídeos de esteviol.",
-    allergens: ["Contém leite e derivados", "Contém traços de soja", "Contém glúten? Não"],
+    allergens: ["Contém leite e derivados", "Contém traços de soja", "Não contém glúten"],
     usage:
       "Adicionar 1 porção (30 g) em 200 ml de água ou bebida de sua preferência. Misturar até homogeneizar. Consumir conforme orientação de nutricionista ou médico.",
     warnings: [
