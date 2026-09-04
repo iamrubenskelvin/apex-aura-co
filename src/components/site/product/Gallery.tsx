@@ -46,7 +46,7 @@ export function Gallery({ media, alt, badges }: { media: Media[]; alt: string; b
   }
 
   return (
-    <div className="min-w-0">
+    <div className="min-w-0 lg:sticky lg:top-28 lg:self-start">
       {/* MOBILE — swipe horizontal + pinch-to-zoom nativo */}
       <div className="relative lg:hidden">
         <div
