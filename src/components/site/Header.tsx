@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Heart, Menu, Search, ShoppingBag, User, X } from "lucide-react";
 import { useCart } from "./cart";
 import { SmartSearch } from "./SmartSearch";
-import { MiniCart } from "./MiniCart";
 
 const nav = [
   { label: "Início", href: "/#topo" },
@@ -167,7 +166,6 @@ export function Header() {
           </div>
         </div>
       )}
-      <MiniCart />
     </header>
   );
 }
