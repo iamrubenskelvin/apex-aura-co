@@ -13,6 +13,7 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { CartProvider } from "@/components/site/cart";
 import { Toaster } from "@/components/ui/sonner";
+import { MiniCart } from "@/components/site/MiniCart";
 
 function NotFoundComponent() {
   return (
@@ -135,6 +136,7 @@ function RootComponent() {
       <CartProvider>
         {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
         <Outlet />
+        <MiniCart />
         <Toaster position="bottom-right" richColors />
       </CartProvider>
     </QueryClientProvider>

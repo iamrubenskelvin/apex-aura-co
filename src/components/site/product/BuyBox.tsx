@@ -37,7 +37,12 @@ export function BuyBox({
   const { add, setOpen, wishlist, toggleWish } = useCart();
   const [selection, setSelection] = useState<Selection>(() =>
     Object.fromEntries(
-      detail.variants.map((g) => [g.id, (g.options.find((o) => o.available) ?? g.options[0])?.id ?? ""]),
+      detail.variants.map((g) => [
+        g.id,
+        (g.options.find((o) => o.available && !o.priceDelta) ??
+          g.options.find((o) => o.available) ??
+          g.options[0])?.id ?? "",
+      ]),
     ),
   );
   const [qty, setQty] = useState(1);
