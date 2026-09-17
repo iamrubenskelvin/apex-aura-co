@@ -10,6 +10,7 @@ import {
   type SortValue,
 } from "@/data/catalog";
 import { ProductCard } from "@/components/site/ProductCard";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { CatalogFilters, type FilterGroupKey } from "./CatalogFilters";
 import { QuickView } from "./QuickView";
 import {
@@ -57,6 +58,7 @@ export function CatalogView({
   hideFilters?: FilterGroupKey[];
   emptyExtra?: ReactNode;
 }) {
+  const isMobile = useIsMobile();
   const [mobileFilters, setMobileFilters] = useState(false);
   const [quick, setQuick] = useState<CatalogProduct | null>(null);
   const [loading, setLoading] = useState(false);
