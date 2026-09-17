@@ -263,17 +263,9 @@ export function CatalogView({
           ) : (
             <>
               <div className="mt-8 grid grid-cols-2 gap-4 sm:gap-5 md:grid-cols-3 xl:grid-cols-4">
-                {/* desktop: paginação | mobile: carregar mais */}
-                <div className="contents sm:hidden">
-                  {visible.map((p, i) => (
-                    <ProductCard key={p.id} product={p} index={i} onQuickView={() => setQuick(p)} />
-                  ))}
-                </div>
-                <div className="contents max-sm:hidden">
-                  {pageItems.map((p, i) => (
-                    <ProductCard key={p.id} product={p} index={i} onQuickView={() => setQuick(p)} />
-                  ))}
-                </div>
+                {(isMobile ? visible : pageItems).map((p, i) => (
+                  <ProductCard key={p.id} product={p} index={i} onQuickView={() => setQuick(p)} />
+                ))}
               </div>
 
               {/* CARREGAR MAIS (mobile) */}
