@@ -94,6 +94,7 @@ function BrandPage() {
                   <Link
                     key={c}
                     to="/categoria/$slug"
+                    search={{} as never}
                     params={{ slug: slugify(c) }}
                     className="rounded-full bg-surface-2 px-4 py-2 text-xs transition-colors hover:text-primary"
                   >

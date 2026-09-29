@@ -83,7 +83,7 @@ export function Header() {
             {nav.map((item) => (
               <Link
                 key={item.label}
-                {...(item.props as never)}
+                {...(item.props as LinkProps)}
                 className="relative py-1 transition-colors hover:text-foreground after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:origin-bottom-right after:scale-x-0 after:bg-primary after:transition-transform after:duration-300 hover:after:origin-bottom-left hover:after:scale-x-100"
               >
                 {item.label}
@@ -159,7 +159,7 @@ export function Header() {
             {nav.map((item) => (
               <Link
                 key={item.label}
-                {...(item.props as never)}
+                {...(item.props as LinkProps)}
                 onClick={() => setOpen(false)}
                 className="rounded-xl bg-surface px-4 py-3 text-sm font-medium transition-colors hover:bg-surface-2"
               >
