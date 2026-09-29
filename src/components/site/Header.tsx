@@ -1,16 +1,19 @@
 import { useEffect, useState } from "react";
+import { Link, type LinkProps } from "@tanstack/react-router";
 import { Heart, Menu, Search, ShoppingBag, User, X } from "lucide-react";
 import { useCart } from "./cart";
 import { SmartSearch } from "./SmartSearch";
 
-const nav = [
-  { label: "Início", href: "/#topo" },
-  { label: "Suplementos", href: "/#produtos" },
-  { label: "Objetivos", href: "/#categorias" },
-  { label: "Marcas", href: "/#marcas" },
-  { label: "Promoções", href: "/#ofertas" },
-  { label: "Blog", href: "/#newsletter" },
-  { label: "Contato", href: "/#rodape" },
+type NavItem = { label: string; props: LinkProps };
+
+const nav: NavItem[] = [
+  { label: "Início", props: { to: "/" } },
+  { label: "Suplementos", props: { to: "/produtos" } },
+  { label: "Objetivos", props: { to: "/objetivo/$slug", params: { slug: "ganho-de-massa" } } },
+  { label: "Marcas", props: { to: "/", hash: "marcas" } },
+  { label: "Promoções", props: { to: "/produtos", search: { promo: true } } },
+  { label: "Blog", props: { to: "/", hash: "newsletter" } },
+  { label: "Contato", props: { to: "/", hash: "rodape" } },
 ];
 
 export function Header() {
