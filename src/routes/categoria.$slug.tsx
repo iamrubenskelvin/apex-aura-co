@@ -160,7 +160,6 @@ function CategoryPage() {
               <Link
                 key={c.slug}
                 to="/categoria/$slug"
-                search={{} as never}
                 params={{ slug: c.slug }}
                 className="rounded-full bg-surface px-4 py-2 text-xs transition-colors hover:text-primary"
               >

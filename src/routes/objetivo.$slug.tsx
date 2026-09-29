@@ -91,7 +91,6 @@ function GoalPage() {
                 <Link
                   key={c}
                   to="/categoria/$slug"
-                  search={{} as never}
                   params={{ slug: slugify(c) }}
                   className="rounded-full bg-surface px-4 py-2 text-xs transition-colors hover:text-primary"
                 >
@@ -135,7 +134,6 @@ function GoalPage() {
                 <Link
                   key={g.slug}
                   to="/objetivo/$slug"
-                  search={{} as never}
                   params={{ slug: g.slug }}
                   className="rounded-full bg-surface px-4 py-2 text-xs transition-colors hover:text-primary"
                 >
