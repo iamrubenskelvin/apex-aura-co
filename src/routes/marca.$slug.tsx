@@ -4,7 +4,11 @@ import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { Breadcrumb } from "@/components/catalog/Breadcrumb";
 import { CatalogView } from "@/components/catalog/CatalogView";
-import { validateCatalogSearch, type CatalogSearch } from "@/components/catalog/search-params";
+import {
+  initialCatalogSearch,
+  validateCatalogSearch,
+  type CatalogSearch,
+} from "@/components/catalog/search-params";
 import { brandBySlug, catalog } from "@/data/catalog";
 import { slugify } from "@/data/product-details";
 
@@ -50,7 +54,7 @@ function BrandNotFound() {
       <main className="mx-auto grid max-w-2xl place-items-center px-5 py-32 text-center">
         <PackageX className="h-12 w-12 text-muted-foreground" />
         <h1 className="text-display mt-6 text-3xl">Marca não encontrada</h1>
-        <Link to="/produtos" search={true} className="btn-base btn-primary mt-8 px-8 py-4 text-sm">
+        <Link to="/produtos" search={initialCatalogSearch} className="btn-base btn-primary mt-8 px-8 py-4 text-sm">
           Ver todos os produtos
         </Link>
       </main>
@@ -94,7 +98,7 @@ function BrandPage() {
                   <Link
                     key={c}
                     to="/categoria/$slug"
-                    search={true}
+                    search={initialCatalogSearch}
                     params={{ slug: slugify(c) }}
                     className="rounded-full bg-surface-2 px-4 py-2 text-xs transition-colors hover:text-primary"
                   >

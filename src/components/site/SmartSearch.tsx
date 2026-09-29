@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { ArrowRight, Clock, Flame, Search, X } from "lucide-react";
+import { initialCatalogSearch } from "@/components/catalog/search-params";
 import { brl } from "@/data/products";
 import { popularProducts, searchSuggestions } from "@/data/catalog";
 import { popularSearches } from "@/data/products";
@@ -203,7 +204,7 @@ export function SmartSearch({ autoFocus = false, onClose }: { autoFocus?: boolea
                       <Link
                         key={c.slug}
                         to="/categoria/$slug"
-                        search={true}
+                        search={initialCatalogSearch}
                         params={{ slug: c.slug }}
                         onClick={close}
                         className="rounded-full bg-surface px-3 py-1.5 text-xs transition-colors hover:bg-surface-2"
@@ -225,7 +226,7 @@ export function SmartSearch({ autoFocus = false, onClose }: { autoFocus?: boolea
                       <Link
                         key={b.slug}
                         to="/marca/$slug"
-                        search={true}
+                        search={initialCatalogSearch}
                         params={{ slug: b.slug }}
                         onClick={close}
                         className="rounded-full bg-surface px-3 py-1.5 text-xs transition-colors hover:bg-surface-2"

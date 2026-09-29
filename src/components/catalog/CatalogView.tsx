@@ -15,6 +15,7 @@ import { CatalogFilters, type FilterGroupKey } from "./CatalogFilters";
 import { QuickView } from "./QuickView";
 import {
   clearedSearch,
+  initialCatalogSearch,
   multiKeys,
   searchToFilters,
   toggleInList,
@@ -253,7 +254,7 @@ export function CatalogView({
                   <Link
                     key={c.value}
                     to="/categoria/$slug"
-                    search={true}
+                    search={initialCatalogSearch}
                     params={{ slug: c.value }}
                     className="rounded-full bg-surface-2 px-4 py-2 text-xs transition-colors hover:text-primary"
                   >
