@@ -203,6 +203,7 @@ export function SmartSearch({ autoFocus = false, onClose }: { autoFocus?: boolea
                       <Link
                         key={c.slug}
                         to="/categoria/$slug"
+                        search={true}
                         params={{ slug: c.slug }}
                         onClick={close}
                         className="rounded-full bg-surface px-3 py-1.5 text-xs transition-colors hover:bg-surface-2"
@@ -224,6 +225,7 @@ export function SmartSearch({ autoFocus = false, onClose }: { autoFocus?: boolea
                       <Link
                         key={b.slug}
                         to="/marca/$slug"
+                        search={true}
                         params={{ slug: b.slug }}
                         onClick={close}
                         className="rounded-full bg-surface px-3 py-1.5 text-xs transition-colors hover:bg-surface-2"

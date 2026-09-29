@@ -50,7 +50,7 @@ function GoalNotFound() {
       <main className="mx-auto grid max-w-2xl place-items-center px-5 py-32 text-center">
         <PackageX className="h-12 w-12 text-muted-foreground" />
         <h1 className="text-display mt-6 text-3xl">Objetivo não encontrado</h1>
-        <Link to="/produtos" className="btn-base btn-primary mt-8 px-8 py-4 text-sm">
+        <Link to="/produtos" search={true} className="btn-base btn-primary mt-8 px-8 py-4 text-sm">
           Ver todos os produtos
         </Link>
       </main>
@@ -91,6 +91,7 @@ function GoalPage() {
                 <Link
                   key={c}
                   to="/categoria/$slug"
+                  search={true}
                   params={{ slug: slugify(c) }}
                   className="rounded-full bg-surface px-4 py-2 text-xs transition-colors hover:text-primary"
                 >
@@ -134,6 +135,7 @@ function GoalPage() {
                 <Link
                   key={g.slug}
                   to="/objetivo/$slug"
+                  search={true}
                   params={{ slug: g.slug }}
                   className="rounded-full bg-surface px-4 py-2 text-xs transition-colors hover:text-primary"
                 >
