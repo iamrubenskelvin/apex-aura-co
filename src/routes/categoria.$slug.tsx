@@ -4,7 +4,11 @@ import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { Breadcrumb } from "@/components/catalog/Breadcrumb";
 import { CatalogView } from "@/components/catalog/CatalogView";
-import { validateCatalogSearch, type CatalogSearch } from "@/components/catalog/search-params";
+import {
+  initialCatalogSearch,
+  validateCatalogSearch,
+  type CatalogSearch,
+} from "@/components/catalog/search-params";
 import { catalog, categoryBySlug, categoryTree } from "@/data/catalog";
 import { slugify } from "@/data/product-details";
 
@@ -53,7 +57,7 @@ function CategoryNotFound() {
         <PackageX className="h-12 w-12 text-muted-foreground" />
         <h1 className="text-display mt-6 text-3xl">Categoria não encontrada</h1>
         <p className="mt-3 text-sm text-muted-foreground">Confira o catálogo completo para achar o que procura.</p>
-        <Link to="/produtos" search={true} className="btn-base btn-primary mt-8 px-8 py-4 text-sm">
+        <Link to="/produtos" search={initialCatalogSearch} className="btn-base btn-primary mt-8 px-8 py-4 text-sm">
           Ver todos os produtos
         </Link>
       </main>
@@ -160,7 +164,7 @@ function CategoryPage() {
               <Link
                 key={c.slug}
                 to="/categoria/$slug"
-                search={true}
+                search={initialCatalogSearch}
                 params={{ slug: c.slug }}
                 className="rounded-full bg-surface px-4 py-2 text-xs transition-colors hover:text-primary"
               >

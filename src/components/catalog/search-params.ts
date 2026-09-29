@@ -115,3 +115,6 @@ export const clearedSearch: Partial<CatalogSearch> = {
   promo: false,
   pagina: 1,
 };
+
+/** Search padrão para links que apenas abrem a página sem filtros. */
+export const initialCatalogSearch: CatalogSearch = validateCatalogSearch({});
