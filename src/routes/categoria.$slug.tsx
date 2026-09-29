@@ -53,7 +53,7 @@ function CategoryNotFound() {
         <PackageX className="h-12 w-12 text-muted-foreground" />
         <h1 className="text-display mt-6 text-3xl">Categoria não encontrada</h1>
         <p className="mt-3 text-sm text-muted-foreground">Confira o catálogo completo para achar o que procura.</p>
-        <Link to="/produtos" className="btn-base btn-primary mt-8 px-8 py-4 text-sm">
+        <Link to="/produtos" search={true} className="btn-base btn-primary mt-8 px-8 py-4 text-sm">
           Ver todos os produtos
         </Link>
       </main>
@@ -160,6 +160,7 @@ function CategoryPage() {
               <Link
                 key={c.slug}
                 to="/categoria/$slug"
+                search={true}
                 params={{ slug: c.slug }}
                 className="rounded-full bg-surface px-4 py-2 text-xs transition-colors hover:text-primary"
               >

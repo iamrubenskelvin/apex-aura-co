@@ -12,6 +12,8 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as BuscarRouteImport } from './routes/buscar'
 import { Route as CategoriaSlugRouteImport } from './routes/categoria.$slug'
+import { Route as MarcaSlugRouteImport } from './routes/marca.$slug'
+import { Route as ObjetivoSlugRouteImport } from './routes/objetivo.$slug'
 import { Route as ProdutosIndexRouteImport } from './routes/produtos.index'
 import { Route as ProdutosSlugRouteImport } from './routes/produtos.$slug'
 
@@ -30,6 +32,16 @@ const CategoriaSlugRoute = CategoriaSlugRouteImport.update({
   path: '/categoria/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MarcaSlugRoute = MarcaSlugRouteImport.update({
+  id: '/marca/$slug',
+  path: '/marca/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ObjetivoSlugRoute = ObjetivoSlugRouteImport.update({
+  id: '/objetivo/$slug',
+  path: '/objetivo/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProdutosIndexRoute = ProdutosIndexRouteImport.update({
   id: '/produtos/',
   path: '/produtos/',
@@ -45,6 +57,8 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/buscar': typeof BuscarRoute
   '/categoria/$slug': typeof CategoriaSlugRoute
+  '/marca/$slug': typeof MarcaSlugRoute
+  '/objetivo/$slug': typeof ObjetivoSlugRoute
   '/produtos/$slug': typeof ProdutosSlugRoute
   '/produtos/': typeof ProdutosIndexRoute
 }
@@ -52,6 +66,8 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/buscar': typeof BuscarRoute
   '/categoria/$slug': typeof CategoriaSlugRoute
+  '/marca/$slug': typeof MarcaSlugRoute
+  '/objetivo/$slug': typeof ObjetivoSlugRoute
   '/produtos/$slug': typeof ProdutosSlugRoute
   '/produtos': typeof ProdutosIndexRoute
 }
@@ -60,20 +76,37 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/buscar': typeof BuscarRoute
   '/categoria/$slug': typeof CategoriaSlugRoute
+  '/marca/$slug': typeof MarcaSlugRoute
+  '/objetivo/$slug': typeof ObjetivoSlugRoute
   '/produtos/$slug': typeof ProdutosSlugRoute
   '/produtos/': typeof ProdutosIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/buscar' | '/categoria/$slug' | '/produtos/$slug' | '/produtos/'
+    | '/'
+    | '/buscar'
+    | '/categoria/$slug'
+    | '/marca/$slug'
+    | '/objetivo/$slug'
+    | '/produtos/$slug'
+    | '/produtos/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/buscar' | '/categoria/$slug' | '/produtos/$slug' | '/produtos'
+  to:
+    | '/'
+    | '/buscar'
+    | '/categoria/$slug'
+    | '/marca/$slug'
+    | '/objetivo/$slug'
+    | '/produtos/$slug'
+    | '/produtos'
   id:
     | '__root__'
     | '/'
     | '/buscar'
     | '/categoria/$slug'
+    | '/marca/$slug'
+    | '/objetivo/$slug'
     | '/produtos/$slug'
     | '/produtos/'
   fileRoutesById: FileRoutesById
@@ -82,6 +115,8 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   BuscarRoute: typeof BuscarRoute
   CategoriaSlugRoute: typeof CategoriaSlugRoute
+  MarcaSlugRoute: typeof MarcaSlugRoute
+  ObjetivoSlugRoute: typeof ObjetivoSlugRoute
   ProdutosSlugRoute: typeof ProdutosSlugRoute
   ProdutosIndexRoute: typeof ProdutosIndexRoute
 }
@@ -109,6 +144,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CategoriaSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/marca/$slug': {
+      id: '/marca/$slug'
+      path: '/marca/$slug'
+      fullPath: '/marca/$slug'
+      preLoaderRoute: typeof MarcaSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/objetivo/$slug': {
+      id: '/objetivo/$slug'
+      path: '/objetivo/$slug'
+      fullPath: '/objetivo/$slug'
+      preLoaderRoute: typeof ObjetivoSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/produtos/': {
       id: '/produtos/'
       path: '/produtos'
@@ -130,6 +179,8 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   BuscarRoute: BuscarRoute,
   CategoriaSlugRoute: CategoriaSlugRoute,
+  MarcaSlugRoute: MarcaSlugRoute,
+  ObjetivoSlugRoute: ObjetivoSlugRoute,
   ProdutosSlugRoute: ProdutosSlugRoute,
   ProdutosIndexRoute: ProdutosIndexRoute,
 }

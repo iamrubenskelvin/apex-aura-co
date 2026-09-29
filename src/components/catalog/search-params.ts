@@ -32,7 +32,9 @@ const bool = (v: unknown) => v === true || v === "true" || v === "1";
 
 const sorts = sortOptions.map((s) => s.value) as string[];
 
-export function validateCatalogSearch(search: Record<string, unknown>): CatalogSearch {
+export function validateCatalogSearch(
+  search: Partial<Record<keyof CatalogSearch, unknown>>,
+): CatalogSearch {
   const ordenar = str(search["ordenar"]);
   return {
     q: str(search["q"]).slice(0, 100),

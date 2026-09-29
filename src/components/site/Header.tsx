@@ -1,16 +1,19 @@
 import { useEffect, useState } from "react";
+import { Link, type LinkProps } from "@tanstack/react-router";
 import { Heart, Menu, Search, ShoppingBag, User, X } from "lucide-react";
 import { useCart } from "./cart";
 import { SmartSearch } from "./SmartSearch";
 
-const nav = [
-  { label: "Início", href: "/#topo" },
-  { label: "Suplementos", href: "/#produtos" },
-  { label: "Objetivos", href: "/#categorias" },
-  { label: "Marcas", href: "/#marcas" },
-  { label: "Promoções", href: "/#ofertas" },
-  { label: "Blog", href: "/#newsletter" },
-  { label: "Contato", href: "/#rodape" },
+type NavItem = { label: string; props: LinkProps };
+
+const nav: NavItem[] = [
+  { label: "Início", props: { to: "/" } },
+  { label: "Suplementos", props: { to: "/produtos" } },
+  { label: "Objetivos", props: { to: "/objetivo/$slug", params: { slug: "ganho-de-massa" } } },
+  { label: "Marcas", props: { to: "/", hash: "marcas" } },
+  { label: "Promoções", props: { to: "/produtos", search: { promo: true } } },
+  { label: "Blog", props: { to: "/", hash: "newsletter" } },
+  { label: "Contato", props: { to: "/", hash: "rodape" } },
 ];
 
 export function Header() {
@@ -53,7 +56,7 @@ export function Header() {
             scrolled ? "py-2" : "py-4"
           }`}
         >
-          <a href="#topo" className="flex shrink-0 items-center gap-2" aria-label="Forja Nutri — início">
+          <Link to="/" className="flex shrink-0 items-center gap-2" aria-label="Forja Nutri — início">
             <svg
               viewBox="0 0 40 40"
               role="img"
@@ -71,20 +74,20 @@ export function Header() {
             >
               Forja<span className="text-primary">Nutri</span>
             </span>
-          </a>
+          </Link>
 
           <nav
             className="hidden min-w-0 items-center justify-center gap-6 text-sm font-medium text-muted-foreground xl:flex"
             aria-label="Principal"
           >
             {nav.map((item) => (
-              <a
+              <Link
                 key={item.label}
-                href={item.href}
+                {...(item.props as LinkProps)}
                 className="relative py-1 transition-colors hover:text-foreground after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:origin-bottom-right after:scale-x-0 after:bg-primary after:transition-transform after:duration-300 hover:after:origin-bottom-left hover:after:scale-x-100"
               >
                 {item.label}
-              </a>
+              </Link>
             ))}
           </nav>
 
@@ -154,14 +157,14 @@ export function Header() {
         <div className="animate-[fade-up_0.25s_ease-out] border-b border-border bg-background/95 px-5 pb-6 pt-2 backdrop-blur-xl xl:hidden">
           <div className="grid grid-cols-2 gap-2">
             {nav.map((item) => (
-              <a
+              <Link
                 key={item.label}
-                href={item.href}
+                {...(item.props as LinkProps)}
                 onClick={() => setOpen(false)}
                 className="rounded-xl bg-surface px-4 py-3 text-sm font-medium transition-colors hover:bg-surface-2"
               >
                 {item.label}
-              </a>
+              </Link>
             ))}
           </div>
         </div>
