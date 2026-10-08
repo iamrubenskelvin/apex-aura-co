@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { ChevronRight, PackageX } from "lucide-react";
-import { brl, products, type Product } from "@/data/products";
-import { getProductDetail, productBySlug } from "@/data/product-details";
+import { ChevronLeft, ChevronRight, PackageX } from "lucide-react";
+import { brl, type Product } from "@/data/products";
+import { catalog, catalogById, catalogBySlug } from "@/data/catalog";
+import { getProductDetail } from "@/data/product-details";
 import { useCart } from "@/components/site/cart";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
@@ -18,9 +19,18 @@ const SITE = "https://apex-aura-co.lovable.app";
 
 export const Route = createFileRoute("/produtos/$slug")({
   loader: ({ params }) => {
-    const product = productBySlug(params.slug);
+    const product = catalogBySlug(params.slug);
     if (!product) throw notFound();
-    return { product, detail: getProductDetail(product) };
+    const siblings = catalog.filter((p) => p.category === product.category);
+    const i = siblings.findIndex((p) => p.id === product.id);
+    const prev = siblings.length > 1 ? siblings[(i - 1 + siblings.length) % siblings.length] : undefined;
+    const next = siblings.length > 1 ? siblings[(i + 1) % siblings.length] : undefined;
+    return {
+      product,
+      detail: getProductDetail(product),
+      prev: prev ? { slug: prev.slug, name: prev.name } : null,
+      next: next ? { slug: next.slug, name: next.name } : null,
+    };
   },
   head: ({ params, loaderData }) => {
     if (!loaderData) {
@@ -127,7 +137,7 @@ function ProductNotFound() {
 }
 
 function ProductPage() {
-  const { product, detail } = Route.useLoaderData();
+  const { product, detail, prev, next } = Route.useLoaderData();
   const { recent, pushRecent } = useCart();
   const [, setVariantLabel] = useState("");
 
@@ -137,19 +147,19 @@ function ProductPage() {
   }, [product.id, pushRecent]);
 
   const related: Product[] = detail.relatedIds
-    .map((id) => products.find((p) => p.id === id))
+    .map((id) => catalogById(id))
     .filter((p): p is Product => Boolean(p));
 
   const bundleItems: Product[] = [
     product,
     ...detail.bundleIds
-      .map((id) => products.find((p) => p.id === id))
+      .map((id) => catalogById(id))
       .filter((p): p is Product => Boolean(p)),
   ];
 
   const recentProducts = recent
     .filter((id) => id !== product.id)
-    .map((id) => products.find((p) => p.id === id))
+    .map((id) => catalogById(id))
     .filter((p): p is Product => Boolean(p));
 
   return (
@@ -186,6 +196,23 @@ function ProductPage() {
             </li>
           </ol>
         </nav>
+
+        {(prev || next) && (
+          <nav aria-label={`Outros produtos em ${product.category}`} className="mx-auto flex max-w-7xl justify-between gap-3 px-5 pb-6 text-xs sm:text-sm lg:px-8">
+            {prev ? (
+              <Link to="/produtos/$slug" params={{ slug: prev.slug }} className="flex min-w-0 items-center gap-1 text-muted-foreground transition-colors hover:text-primary">
+                <ChevronLeft className="h-4 w-4 shrink-0" aria-hidden="true" />
+                <span className="truncate">Anterior: {prev.name}</span>
+              </Link>
+            ) : <span />}
+            {next && (
+              <Link to="/produtos/$slug" params={{ slug: next.slug }} className="flex min-w-0 items-center gap-1 text-right text-muted-foreground transition-colors hover:text-primary">
+                <span className="truncate">Próximo: {next.name}</span>
+                <ChevronRight className="h-4 w-4 shrink-0" aria-hidden="true" />
+              </Link>
+            )}
+          </nav>
+        )}
 
         {/* GALERIA + COMPRA */}
         <section className="mx-auto grid max-w-7xl gap-10 px-5 pb-16 lg:grid-cols-2 lg:gap-14 lg:px-8">
