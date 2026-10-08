@@ -148,19 +148,19 @@ function ProductPage() {
 
   const related: Product[] = detail.relatedIds
     .map((id) => catalogById(id))
-    .filter((p): p is Product => Boolean(p));
+    .filter((p): p is NonNullable<typeof p> => Boolean(p));
 
   const bundleItems: Product[] = [
     product,
     ...detail.bundleIds
       .map((id) => catalogById(id))
-      .filter((p): p is Product => Boolean(p)),
+      .filter((p): p is NonNullable<typeof p> => Boolean(p)),
   ];
 
   const recentProducts = recent
     .filter((id) => id !== product.id)
     .map((id) => catalogById(id))
-    .filter((p): p is Product => Boolean(p));
+    .filter((p): p is NonNullable<typeof p> => Boolean(p));
 
   return (
     <div className="min-h-screen bg-background">
