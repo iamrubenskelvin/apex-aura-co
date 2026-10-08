@@ -52,7 +52,7 @@ export function validateCatalogSearch(
     promo: bool(search["promo"]),
     ordenar: (sorts.includes(ordenar) ? ordenar : "relevancia") as SortValue,
     pagina: Math.max(1, num(search["pagina"]) ?? 1),
-    porPagina: [12, 24, 48].includes(num(search["porPagina"]) ?? 24)
+    porPagina: [12, 24, 48].includes(num(search["porPagina"]) ?? 0)
       ? (num(search["porPagina"]) as number)
       : 24,
   };
