@@ -134,11 +134,11 @@ export function ProductCard({
         <span>({product.reviews.toLocaleString("pt-BR")})</span>
       </div>
 
-      <div className="mt-4 flex items-end gap-2">
+      <div className="mt-4 flex flex-wrap items-end gap-x-2 gap-y-0.5">
         {product.oldPrice && (
-          <span className="text-sm text-muted-foreground line-through">{brl(product.oldPrice)}</span>
+          <span className="text-xs text-muted-foreground line-through sm:text-sm">{brl(product.oldPrice)}</span>
         )}
-        <span className="text-2xl font-bold tracking-tight text-foreground">{brl(product.price)}</span>
+        <span className="text-xl font-bold tracking-tight text-foreground sm:text-2xl">{brl(product.price)}</span>
       </div>
       <p className="mt-1 text-sm font-semibold text-primary">
         {brl(pixPrice(product.price))} no PIX
