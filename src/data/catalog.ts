@@ -538,10 +538,12 @@ export const emptyFilters: Filters = {
   promo: false,
 };
 
-export const priceBounds = (() => {
+export const priceBounds = { min: 0, max: 0 };
+const recomputeBounds = () => {
   const prices = catalog.map((p) => p.price);
-  return { min: 0, max: Math.ceil(Math.max(...prices) / 50) * 50 };
-})();
+  priceBounds.max = Math.ceil(Math.max(50, ...prices) / 50) * 50;
+};
+recomputeBounds();
 
 const norm = (v: string) =>
   v.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
@@ -685,4 +687,21 @@ export function searchSuggestions(query: string) {
   };
 }
 
-export const popularProducts = sortCatalog(catalog, "vendidos").slice(0, 8);
+export const popularProducts: CatalogProduct[] = sortCatalog(catalog, "vendidos").slice(0, 8);
+
+/* ------------------------------------------------- sincronização com o banco */
+
+export const productImages: Record<string, string> = {
+  whey, creatine, preworkout, bcaa, mass, thermo, vitamin, bar,
+};
+export const resolveImage = (key: string) => productImages[key] ?? key;
+
+/**
+ * Substitui o conteúdo do catálogo (in-place) pelos produtos vindos do banco.
+ * As páginas continuam lendo `catalog` de forma síncrona.
+ */
+export function hydrateCatalog(list: CatalogProduct[]) {
+  catalog.splice(0, catalog.length, ...list.filter((p) => p.status === "ativo"));
+  recomputeBounds();
+  popularProducts.splice(0, popularProducts.length, ...sortCatalog(catalog, "vendidos").slice(0, 8));
+}
