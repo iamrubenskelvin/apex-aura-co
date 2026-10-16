@@ -68,7 +68,7 @@ function EditProduct() {
     e.preventDefault();
     const price = Number(f.price.replace(",", "."));
     const old = f.old_price ? Number(f.old_price.replace(",", ".")) : null;
-    if (!f.name.trim() || !(price > 0)) return toast.error("Informe nome e preço válido.");
+    if (!f.name.trim() || !(price > 0)) { toast.error("Informe nome e preço válido."); return; }
     const slug = f.slug.trim() || slugify(f.name);
     const badge = old && old > price ? `-${Math.round((1 - price / old) * 100)}%` : null;
     const row = {
@@ -84,7 +84,7 @@ function EditProduct() {
       ? await supabase.from("products").insert({ ...row, id: slug })
       : await supabase.from("products").update(row).eq("id", id);
     setSaving(false);
-    if (error) return toast.error(error.code === "23505" ? "Já existe um produto com esse endereço (slug)." : error.message);
+    if (error) { toast.error(error.code === "23505" ? "Já existe um produto com esse endereço (slug)." : error.message); return; }
     toast.success(isNew ? "Produto criado." : "Alterações salvas.");
     qc.invalidateQueries({ queryKey: ["admin-products"] });
     qc.invalidateQueries({ queryKey: ["admin-product", id] });

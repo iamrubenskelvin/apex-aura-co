@@ -34,7 +34,7 @@ function AdminProducts() {
   async function remove(id: string, name: string) {
     if (!confirm(`Excluir "${name}"? Esta ação não pode ser desfeita.`)) return;
     const { error } = await supabase.from("products").delete().eq("id", id);
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     toast.success("Produto excluído.");
     qc.invalidateQueries({ queryKey: ["admin-products"] });
     ensureCatalog(true);
