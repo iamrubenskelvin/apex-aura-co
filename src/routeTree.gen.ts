@@ -19,6 +19,8 @@ import { Route as MarcaSlugRouteImport } from './routes/marca.$slug'
 import { Route as ObjetivoSlugRouteImport } from './routes/objetivo.$slug'
 import { Route as ProdutosIndexRouteImport } from './routes/produtos.index'
 import { Route as ProdutosSlugRouteImport } from './routes/produtos.$slug'
+import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
+import { Route as AuthenticatedAdminProdutosIdRouteImport } from './routes/_authenticated/admin.produtos.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -69,28 +71,42 @@ const ProdutosSlugRoute = ProdutosSlugRouteImport.update({
   path: '/produtos/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthenticatedAdminRoute,
+} as any)
+const AuthenticatedAdminProdutosIdRoute =
+  AuthenticatedAdminProdutosIdRouteImport.update({
+    id: '/produtos/$id',
+    path: '/produtos/$id',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/buscar': typeof BuscarRoute
-  '/admin': typeof AuthenticatedAdminRoute
+  '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/categoria/$slug': typeof CategoriaSlugRoute
   '/marca/$slug': typeof MarcaSlugRoute
   '/objetivo/$slug': typeof ObjetivoSlugRoute
   '/produtos/$slug': typeof ProdutosSlugRoute
   '/produtos/': typeof ProdutosIndexRoute
+  '/admin/': typeof AuthenticatedAdminIndexRoute
+  '/admin/produtos/$id': typeof AuthenticatedAdminProdutosIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/buscar': typeof BuscarRoute
-  '/admin': typeof AuthenticatedAdminRoute
   '/categoria/$slug': typeof CategoriaSlugRoute
   '/marca/$slug': typeof MarcaSlugRoute
   '/objetivo/$slug': typeof ObjetivoSlugRoute
   '/produtos/$slug': typeof ProdutosSlugRoute
   '/produtos': typeof ProdutosIndexRoute
+  '/admin': typeof AuthenticatedAdminIndexRoute
+  '/admin/produtos/$id': typeof AuthenticatedAdminProdutosIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -98,12 +114,14 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
   '/buscar': typeof BuscarRoute
-  '/_authenticated/admin': typeof AuthenticatedAdminRoute
+  '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
   '/categoria/$slug': typeof CategoriaSlugRoute
   '/marca/$slug': typeof MarcaSlugRoute
   '/objetivo/$slug': typeof ObjetivoSlugRoute
   '/produtos/$slug': typeof ProdutosSlugRoute
   '/produtos/': typeof ProdutosIndexRoute
+  '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
+  '/_authenticated/admin/produtos/$id': typeof AuthenticatedAdminProdutosIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -117,17 +135,20 @@ export interface FileRouteTypes {
     | '/objetivo/$slug'
     | '/produtos/$slug'
     | '/produtos/'
+    | '/admin/'
+    | '/admin/produtos/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/auth'
     | '/buscar'
-    | '/admin'
     | '/categoria/$slug'
     | '/marca/$slug'
     | '/objetivo/$slug'
     | '/produtos/$slug'
     | '/produtos'
+    | '/admin'
+    | '/admin/produtos/$id'
   id:
     | '__root__'
     | '/'
@@ -140,6 +161,8 @@ export interface FileRouteTypes {
     | '/objetivo/$slug'
     | '/produtos/$slug'
     | '/produtos/'
+    | '/_authenticated/admin/'
+    | '/_authenticated/admin/produtos/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -226,15 +249,42 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProdutosSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/admin/': {
+      id: '/_authenticated/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/produtos/$id': {
+      id: '/_authenticated/admin/produtos/$id'
+      path: '/produtos/$id'
+      fullPath: '/admin/produtos/$id'
+      preLoaderRoute: typeof AuthenticatedAdminProdutosIdRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
   }
 }
 
+interface AuthenticatedAdminRouteChildren {
+  AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
+  AuthenticatedAdminProdutosIdRoute: typeof AuthenticatedAdminProdutosIdRoute
+}
+
+const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
+  AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
+  AuthenticatedAdminProdutosIdRoute: AuthenticatedAdminProdutosIdRoute,
+}
+
+const AuthenticatedAdminRouteWithChildren =
+  AuthenticatedAdminRoute._addFileChildren(AuthenticatedAdminRouteChildren)
+
 interface AuthenticatedRouteRouteChildren {
-  AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
+  AuthenticatedAdminRoute: typeof AuthenticatedAdminRouteWithChildren
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
-  AuthenticatedAdminRoute: AuthenticatedAdminRoute,
+  AuthenticatedAdminRoute: AuthenticatedAdminRouteWithChildren,
 }
 
 const AuthenticatedRouteRouteWithChildren =
