@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Zap } from "lucide-react";
-import { brl, flashDeals, pixPrice } from "@/data/products";
+import { brl, pixPrice } from "@/data/products";
+import { catalog } from "@/data/catalog";
 import { useCart } from "./cart";
 
 function useCountdown(hours = 5) {
@@ -14,6 +15,7 @@ function useCountdown(hours = 5) {
 }
 
 export function FlashDeals() {
+  const flashDeals = catalog.filter((p) => p.status === "ativo" && p.oldPrice && p.stock > 0).slice(0, 4);
   const { add } = useCart();
   const [h, m, s] = useCountdown();
 
