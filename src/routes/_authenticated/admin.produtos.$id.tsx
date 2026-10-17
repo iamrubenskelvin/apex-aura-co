@@ -145,6 +145,29 @@ function EditProduct() {
                 </button>
               ))}
             </div>
+            <label className="btn-base btn-ghost-outline w-full cursor-pointer px-4 py-3 text-sm">
+              Enviar foto do computador
+              <input
+                type="file"
+                accept="image/png,image/jpeg,image/webp"
+                className="sr-only"
+                onChange={async (e) => {
+                  const file = e.target.files?.[0];
+                  e.target.value = "";
+                  if (!file) return;
+                  if (file.size > 5 * 1024 * 1024) return void toast.error("A foto precisa ter até 5 MB.");
+                  const t = toast.loading("Enviando foto…");
+                  const ext = file.name.split(".").pop()?.toLowerCase() || "jpg";
+                  const path = `${crypto.randomUUID()}.${ext}`;
+                  const up = await supabase.storage.from("product-images").upload(path, file, { contentType: file.type });
+                  if (up.error) return void toast.error("Não foi possível enviar a foto.", { id: t });
+                  const signed = await supabase.storage.from("product-images").createSignedUrl(path, 60 * 60 * 24 * 365 * 10);
+                  if (signed.error || !signed.data) return void toast.error("Não foi possível gerar o link da foto.", { id: t });
+                  set("image", signed.data.signedUrl);
+                  toast.success("Foto enviada. Salve o produto para aplicar.", { id: t });
+                }}
+              />
+            </label>
             <L label="Ou cole o endereço de uma imagem"><input className={field} value={productImages[f.image] ? "" : f.image} placeholder="https://…" onChange={(e) => set("image", e.target.value)} /></L>
           </Card>
 
