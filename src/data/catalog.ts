@@ -32,6 +32,7 @@ export type CatalogProduct = Product & {
   createdAt: string;
   sales: number;
   isNew?: boolean;
+  featured?: boolean;
 };
 
 /* ---------------------------------------------------------------- taxonomia */

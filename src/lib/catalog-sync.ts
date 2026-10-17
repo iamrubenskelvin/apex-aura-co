@@ -26,6 +26,7 @@ export function rowToProduct(r: ProductRow): CatalogProduct {
     ...(r.badge ? { badge: r.badge } : {}),
     ...(r.best_seller ? { bestSeller: true } : {}),
     ...(r.is_new ? { isNew: true } : {}),
+    ...(r.featured ? { featured: true } : {}),
     stockLeft: r.stock,
     stockTotal: r.stock_total ?? Math.max(r.stock, 1) * 3,
     stock: r.stock,

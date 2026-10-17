@@ -7,7 +7,8 @@ import {
   ShieldCheck,
   Truck,
 } from "lucide-react";
-import { bestSellers, categories, featured } from "@/data/products";
+import { categories } from "@/data/products";
+import { catalog, sortCatalog } from "@/data/catalog";
 import { Header } from "@/components/site/Header";
 import { HeroSlider } from "@/components/site/HeroSlider";
 import { ProductCard } from "@/components/site/ProductCard";
@@ -49,6 +50,10 @@ const benefits = [
 ];
 
 function Home() {
+  const active = catalog.filter((p) => p.status === "ativo");
+  const marked = active.filter((p) => p.featured);
+  const featured = (marked.length ? marked : active).slice(0, 12);
+  const bestSellers = sortCatalog(active.filter((p) => p.bestSeller).length ? active.filter((p) => p.bestSeller) : active, "vendidos");
   return (
     <>
       <div className="min-h-screen bg-background">
