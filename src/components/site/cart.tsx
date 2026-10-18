@@ -7,6 +7,8 @@ import {
   useState,
   type ReactNode,
 } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { useSession } from "@/lib/session";
 
 export type CartLine = {
   id: string;
@@ -77,6 +79,7 @@ function write(key: string, value: unknown) {
 }
 
 export function CartProvider({ children }: { children: ReactNode }) {
+  const { user } = useSession();
   const [lines, setLines] = useState<CartLine[]>([]);
   const [wishlist, setWishlist] = useState<string[]>([]);
   const [recent, setRecent] = useState<string[]>([]);
@@ -124,9 +127,42 @@ export function CartProvider({ children }: { children: ReactNode }) {
     setLines((prev) => prev.filter((l) => l.id !== id));
   }, []);
 
-  const toggleWish = useCallback((id: string) => {
-    setWishlist((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]));
-  }, []);
+  // Favoritos acompanham a conta: ao entrar, junta os locais com os salvos.
+  useEffect(() => {
+    if (!hydrated || !user) return;
+    let cancelled = false;
+    (async () => {
+      const { data } = await supabase.from("wishlist_items").select("product_id");
+      if (cancelled) return;
+      const remote = (data ?? []).map((r) => r.product_id);
+      const local = read<string[]>(KEYS.wish, []);
+      const missing = local.filter((id) => !remote.includes(id));
+      if (missing.length) {
+        await supabase.from("wishlist_items").upsert(
+          missing.map((product_id) => ({ product_id, user_id: user.id })),
+          { onConflict: "user_id,product_id" },
+        );
+      }
+      if (!cancelled) setWishlist([...new Set([...remote, ...local])]);
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [user, hydrated]);
+
+  const toggleWish = useCallback(
+    (id: string) => {
+      setWishlist((prev) => {
+        const has = prev.includes(id);
+        if (user) {
+          if (has) void supabase.from("wishlist_items").delete().eq("product_id", id).eq("user_id", user.id);
+          else void supabase.from("wishlist_items").insert({ product_id: id, user_id: user.id });
+        }
+        return has ? prev.filter((x) => x !== id) : [...prev, id];
+      });
+    },
+    [user],
+  );
 
   const pushRecent = useCallback((id: string) => {
     setRecent((prev) => [id, ...prev.filter((x) => x !== id)].slice(0, 8));
