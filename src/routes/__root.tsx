@@ -8,7 +8,9 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
-import { useEffect, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
+import type { User } from "@supabase/supabase-js";
+import { SessionProvider } from "@/lib/session";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
@@ -137,8 +139,11 @@ function RootShell({ children }: { children: ReactNode }) {
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   const router = useRouter();
+  const [session, setSession] = useState<{ user: User | null; ready: boolean }>({ user: null, ready: false });
   useEffect(() => {
-    const { data } = supabase.auth.onAuthStateChange((event) => {
+    supabase.auth.getSession().then(({ data }) => setSession({ user: data.session?.user ?? null, ready: true }));
+    const { data } = supabase.auth.onAuthStateChange((event, s) => {
+      setSession({ user: s?.user ?? null, ready: true });
       if (event !== "SIGNED_IN" && event !== "SIGNED_OUT" && event !== "USER_UPDATED") return;
       router.invalidate();
       if (event !== "SIGNED_OUT") queryClient.invalidateQueries();
@@ -148,12 +153,14 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <CartProvider>
-        {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-        <Outlet />
-        <MiniCart />
-        <Toaster position="bottom-right" richColors />
-      </CartProvider>
+      <SessionProvider value={session}>
+        <CartProvider>
+          {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+          <Outlet />
+          <MiniCart />
+          <Toaster position="bottom-right" richColors />
+        </CartProvider>
+      </SessionProvider>
     </QueryClientProvider>
   );
 }
