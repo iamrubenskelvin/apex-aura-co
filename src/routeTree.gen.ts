@@ -16,6 +16,7 @@ import { Route as BuscarRouteImport } from './routes/buscar'
 import { Route as RecuperarSenhaRouteImport } from './routes/recuperar-senha'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
+import { Route as AuthenticatedCheckoutRouteImport } from './routes/_authenticated/checkout'
 import { Route as AuthenticatedContaRouteImport } from './routes/_authenticated/conta'
 import { Route as CategoriaSlugRouteImport } from './routes/categoria.$slug'
 import { Route as MarcaSlugRouteImport } from './routes/marca.$slug'
@@ -24,9 +25,14 @@ import { Route as ProdutosIndexRouteImport } from './routes/produtos.index'
 import { Route as ProdutosSlugRouteImport } from './routes/produtos.$slug'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
 import { Route as AuthenticatedContaIndexRouteImport } from './routes/_authenticated/conta.index'
+import { Route as AuthenticatedContaAvaliacoesRouteImport } from './routes/_authenticated/conta.avaliacoes'
+import { Route as AuthenticatedContaCuponsRouteImport } from './routes/_authenticated/conta.cupons'
 import { Route as AuthenticatedContaEnderecosRouteImport } from './routes/_authenticated/conta.enderecos'
+import { Route as AuthenticatedContaFavoritosRouteImport } from './routes/_authenticated/conta.favoritos'
 import { Route as AuthenticatedContaPedidosRouteImport } from './routes/_authenticated/conta.pedidos'
+import { Route as AuthenticatedContaPrivacidadeRouteImport } from './routes/_authenticated/conta.privacidade'
 import { Route as AuthenticatedAdminProdutosIdRouteImport } from './routes/_authenticated/admin.produtos.$id'
+import { Route as AuthenticatedContaPedidosIdRouteImport } from './routes/_authenticated/conta.pedidos.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -60,6 +66,11 @@ const ResetPasswordRoute = ResetPasswordRouteImport.update({
 const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
   id: '/admin',
   path: '/admin',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedCheckoutRoute = AuthenticatedCheckoutRouteImport.update({
+  id: '/checkout',
+  path: '/checkout',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedContaRoute = AuthenticatedContaRouteImport.update({
@@ -102,10 +113,28 @@ const AuthenticatedContaIndexRoute = AuthenticatedContaIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AuthenticatedContaRoute,
 } as any)
+const AuthenticatedContaAvaliacoesRoute =
+  AuthenticatedContaAvaliacoesRouteImport.update({
+    id: '/avaliacoes',
+    path: '/avaliacoes',
+    getParentRoute: () => AuthenticatedContaRoute,
+  } as any)
+const AuthenticatedContaCuponsRoute =
+  AuthenticatedContaCuponsRouteImport.update({
+    id: '/cupons',
+    path: '/cupons',
+    getParentRoute: () => AuthenticatedContaRoute,
+  } as any)
 const AuthenticatedContaEnderecosRoute =
   AuthenticatedContaEnderecosRouteImport.update({
     id: '/enderecos',
     path: '/enderecos',
+    getParentRoute: () => AuthenticatedContaRoute,
+  } as any)
+const AuthenticatedContaFavoritosRoute =
+  AuthenticatedContaFavoritosRouteImport.update({
+    id: '/favoritos',
+    path: '/favoritos',
     getParentRoute: () => AuthenticatedContaRoute,
   } as any)
 const AuthenticatedContaPedidosRoute =
@@ -114,11 +143,23 @@ const AuthenticatedContaPedidosRoute =
     path: '/pedidos',
     getParentRoute: () => AuthenticatedContaRoute,
   } as any)
+const AuthenticatedContaPrivacidadeRoute =
+  AuthenticatedContaPrivacidadeRouteImport.update({
+    id: '/privacidade',
+    path: '/privacidade',
+    getParentRoute: () => AuthenticatedContaRoute,
+  } as any)
 const AuthenticatedAdminProdutosIdRoute =
   AuthenticatedAdminProdutosIdRouteImport.update({
     id: '/produtos/$id',
     path: '/produtos/$id',
     getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedContaPedidosIdRoute =
+  AuthenticatedContaPedidosIdRouteImport.update({
+    id: '/$id',
+    path: '/$id',
+    getParentRoute: () => AuthenticatedContaPedidosRoute,
   } as any)
 
 export interface FileRoutesByFullPath {
@@ -128,17 +169,23 @@ export interface FileRoutesByFullPath {
   '/recuperar-senha': typeof RecuperarSenhaRoute
   '/reset-password': typeof ResetPasswordRoute
   '/admin': typeof AuthenticatedAdminRouteWithChildren
+  '/checkout': typeof AuthenticatedCheckoutRoute
   '/conta': typeof AuthenticatedContaRouteWithChildren
   '/categoria/$slug': typeof CategoriaSlugRoute
   '/marca/$slug': typeof MarcaSlugRoute
   '/objetivo/$slug': typeof ObjetivoSlugRoute
   '/produtos/$slug': typeof ProdutosSlugRoute
   '/produtos/': typeof ProdutosIndexRoute
+  '/conta/avaliacoes': typeof AuthenticatedContaAvaliacoesRoute
+  '/conta/cupons': typeof AuthenticatedContaCuponsRoute
   '/conta/enderecos': typeof AuthenticatedContaEnderecosRoute
-  '/conta/pedidos': typeof AuthenticatedContaPedidosRoute
+  '/conta/favoritos': typeof AuthenticatedContaFavoritosRoute
+  '/conta/pedidos': typeof AuthenticatedContaPedidosRouteWithChildren
+  '/conta/privacidade': typeof AuthenticatedContaPrivacidadeRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
   '/conta/': typeof AuthenticatedContaIndexRoute
   '/admin/produtos/$id': typeof AuthenticatedAdminProdutosIdRoute
+  '/conta/pedidos/$id': typeof AuthenticatedContaPedidosIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -146,16 +193,22 @@ export interface FileRoutesByTo {
   '/buscar': typeof BuscarRoute
   '/recuperar-senha': typeof RecuperarSenhaRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/checkout': typeof AuthenticatedCheckoutRoute
   '/categoria/$slug': typeof CategoriaSlugRoute
   '/marca/$slug': typeof MarcaSlugRoute
   '/objetivo/$slug': typeof ObjetivoSlugRoute
   '/produtos/$slug': typeof ProdutosSlugRoute
   '/produtos': typeof ProdutosIndexRoute
+  '/conta/avaliacoes': typeof AuthenticatedContaAvaliacoesRoute
+  '/conta/cupons': typeof AuthenticatedContaCuponsRoute
   '/conta/enderecos': typeof AuthenticatedContaEnderecosRoute
-  '/conta/pedidos': typeof AuthenticatedContaPedidosRoute
+  '/conta/favoritos': typeof AuthenticatedContaFavoritosRoute
+  '/conta/pedidos': typeof AuthenticatedContaPedidosRouteWithChildren
+  '/conta/privacidade': typeof AuthenticatedContaPrivacidadeRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
   '/conta': typeof AuthenticatedContaIndexRoute
   '/admin/produtos/$id': typeof AuthenticatedAdminProdutosIdRoute
+  '/conta/pedidos/$id': typeof AuthenticatedContaPedidosIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -166,17 +219,23 @@ export interface FileRoutesById {
   '/recuperar-senha': typeof RecuperarSenhaRoute
   '/reset-password': typeof ResetPasswordRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
+  '/_authenticated/checkout': typeof AuthenticatedCheckoutRoute
   '/_authenticated/conta': typeof AuthenticatedContaRouteWithChildren
   '/categoria/$slug': typeof CategoriaSlugRoute
   '/marca/$slug': typeof MarcaSlugRoute
   '/objetivo/$slug': typeof ObjetivoSlugRoute
   '/produtos/$slug': typeof ProdutosSlugRoute
   '/produtos/': typeof ProdutosIndexRoute
+  '/_authenticated/conta/avaliacoes': typeof AuthenticatedContaAvaliacoesRoute
+  '/_authenticated/conta/cupons': typeof AuthenticatedContaCuponsRoute
   '/_authenticated/conta/enderecos': typeof AuthenticatedContaEnderecosRoute
-  '/_authenticated/conta/pedidos': typeof AuthenticatedContaPedidosRoute
+  '/_authenticated/conta/favoritos': typeof AuthenticatedContaFavoritosRoute
+  '/_authenticated/conta/pedidos': typeof AuthenticatedContaPedidosRouteWithChildren
+  '/_authenticated/conta/privacidade': typeof AuthenticatedContaPrivacidadeRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/_authenticated/conta/': typeof AuthenticatedContaIndexRoute
   '/_authenticated/admin/produtos/$id': typeof AuthenticatedAdminProdutosIdRoute
+  '/_authenticated/conta/pedidos/$id': typeof AuthenticatedContaPedidosIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -187,17 +246,23 @@ export interface FileRouteTypes {
     | '/recuperar-senha'
     | '/reset-password'
     | '/admin'
+    | '/checkout'
     | '/conta'
     | '/categoria/$slug'
     | '/marca/$slug'
     | '/objetivo/$slug'
     | '/produtos/$slug'
     | '/produtos/'
+    | '/conta/avaliacoes'
+    | '/conta/cupons'
     | '/conta/enderecos'
+    | '/conta/favoritos'
     | '/conta/pedidos'
+    | '/conta/privacidade'
     | '/admin/'
     | '/conta/'
     | '/admin/produtos/$id'
+    | '/conta/pedidos/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -205,16 +270,22 @@ export interface FileRouteTypes {
     | '/buscar'
     | '/recuperar-senha'
     | '/reset-password'
+    | '/checkout'
     | '/categoria/$slug'
     | '/marca/$slug'
     | '/objetivo/$slug'
     | '/produtos/$slug'
     | '/produtos'
+    | '/conta/avaliacoes'
+    | '/conta/cupons'
     | '/conta/enderecos'
+    | '/conta/favoritos'
     | '/conta/pedidos'
+    | '/conta/privacidade'
     | '/admin'
     | '/conta'
     | '/admin/produtos/$id'
+    | '/conta/pedidos/$id'
   id:
     | '__root__'
     | '/'
@@ -224,17 +295,23 @@ export interface FileRouteTypes {
     | '/recuperar-senha'
     | '/reset-password'
     | '/_authenticated/admin'
+    | '/_authenticated/checkout'
     | '/_authenticated/conta'
     | '/categoria/$slug'
     | '/marca/$slug'
     | '/objetivo/$slug'
     | '/produtos/$slug'
     | '/produtos/'
+    | '/_authenticated/conta/avaliacoes'
+    | '/_authenticated/conta/cupons'
     | '/_authenticated/conta/enderecos'
+    | '/_authenticated/conta/favoritos'
     | '/_authenticated/conta/pedidos'
+    | '/_authenticated/conta/privacidade'
     | '/_authenticated/admin/'
     | '/_authenticated/conta/'
     | '/_authenticated/admin/produtos/$id'
+    | '/_authenticated/conta/pedidos/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -302,6 +379,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/checkout': {
+      id: '/_authenticated/checkout'
+      path: '/checkout'
+      fullPath: '/checkout'
+      preLoaderRoute: typeof AuthenticatedCheckoutRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/conta': {
       id: '/_authenticated/conta'
       path: '/conta'
@@ -358,11 +442,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedContaIndexRouteImport
       parentRoute: typeof AuthenticatedContaRoute
     }
+    '/_authenticated/conta/avaliacoes': {
+      id: '/_authenticated/conta/avaliacoes'
+      path: '/avaliacoes'
+      fullPath: '/conta/avaliacoes'
+      preLoaderRoute: typeof AuthenticatedContaAvaliacoesRouteImport
+      parentRoute: typeof AuthenticatedContaRoute
+    }
+    '/_authenticated/conta/cupons': {
+      id: '/_authenticated/conta/cupons'
+      path: '/cupons'
+      fullPath: '/conta/cupons'
+      preLoaderRoute: typeof AuthenticatedContaCuponsRouteImport
+      parentRoute: typeof AuthenticatedContaRoute
+    }
     '/_authenticated/conta/enderecos': {
       id: '/_authenticated/conta/enderecos'
       path: '/enderecos'
       fullPath: '/conta/enderecos'
       preLoaderRoute: typeof AuthenticatedContaEnderecosRouteImport
+      parentRoute: typeof AuthenticatedContaRoute
+    }
+    '/_authenticated/conta/favoritos': {
+      id: '/_authenticated/conta/favoritos'
+      path: '/favoritos'
+      fullPath: '/conta/favoritos'
+      preLoaderRoute: typeof AuthenticatedContaFavoritosRouteImport
       parentRoute: typeof AuthenticatedContaRoute
     }
     '/_authenticated/conta/pedidos': {
@@ -372,12 +477,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedContaPedidosRouteImport
       parentRoute: typeof AuthenticatedContaRoute
     }
+    '/_authenticated/conta/privacidade': {
+      id: '/_authenticated/conta/privacidade'
+      path: '/privacidade'
+      fullPath: '/conta/privacidade'
+      preLoaderRoute: typeof AuthenticatedContaPrivacidadeRouteImport
+      parentRoute: typeof AuthenticatedContaRoute
+    }
     '/_authenticated/admin/produtos/$id': {
       id: '/_authenticated/admin/produtos/$id'
       path: '/produtos/$id'
       fullPath: '/admin/produtos/$id'
       preLoaderRoute: typeof AuthenticatedAdminProdutosIdRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/conta/pedidos/$id': {
+      id: '/_authenticated/conta/pedidos/$id'
+      path: '/$id'
+      fullPath: '/conta/pedidos/$id'
+      preLoaderRoute: typeof AuthenticatedContaPedidosIdRouteImport
+      parentRoute: typeof AuthenticatedContaPedidosRoute
     }
   }
 }
@@ -395,15 +514,37 @@ const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
 const AuthenticatedAdminRouteWithChildren =
   AuthenticatedAdminRoute._addFileChildren(AuthenticatedAdminRouteChildren)
 
+interface AuthenticatedContaPedidosRouteChildren {
+  AuthenticatedContaPedidosIdRoute: typeof AuthenticatedContaPedidosIdRoute
+}
+
+const AuthenticatedContaPedidosRouteChildren: AuthenticatedContaPedidosRouteChildren =
+  {
+    AuthenticatedContaPedidosIdRoute: AuthenticatedContaPedidosIdRoute,
+  }
+
+const AuthenticatedContaPedidosRouteWithChildren =
+  AuthenticatedContaPedidosRoute._addFileChildren(
+    AuthenticatedContaPedidosRouteChildren,
+  )
+
 interface AuthenticatedContaRouteChildren {
+  AuthenticatedContaAvaliacoesRoute: typeof AuthenticatedContaAvaliacoesRoute
+  AuthenticatedContaCuponsRoute: typeof AuthenticatedContaCuponsRoute
   AuthenticatedContaEnderecosRoute: typeof AuthenticatedContaEnderecosRoute
-  AuthenticatedContaPedidosRoute: typeof AuthenticatedContaPedidosRoute
+  AuthenticatedContaFavoritosRoute: typeof AuthenticatedContaFavoritosRoute
+  AuthenticatedContaPedidosRoute: typeof AuthenticatedContaPedidosRouteWithChildren
+  AuthenticatedContaPrivacidadeRoute: typeof AuthenticatedContaPrivacidadeRoute
   AuthenticatedContaIndexRoute: typeof AuthenticatedContaIndexRoute
 }
 
 const AuthenticatedContaRouteChildren: AuthenticatedContaRouteChildren = {
+  AuthenticatedContaAvaliacoesRoute: AuthenticatedContaAvaliacoesRoute,
+  AuthenticatedContaCuponsRoute: AuthenticatedContaCuponsRoute,
   AuthenticatedContaEnderecosRoute: AuthenticatedContaEnderecosRoute,
-  AuthenticatedContaPedidosRoute: AuthenticatedContaPedidosRoute,
+  AuthenticatedContaFavoritosRoute: AuthenticatedContaFavoritosRoute,
+  AuthenticatedContaPedidosRoute: AuthenticatedContaPedidosRouteWithChildren,
+  AuthenticatedContaPrivacidadeRoute: AuthenticatedContaPrivacidadeRoute,
   AuthenticatedContaIndexRoute: AuthenticatedContaIndexRoute,
 }
 
@@ -412,11 +553,13 @@ const AuthenticatedContaRouteWithChildren =
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedAdminRoute: typeof AuthenticatedAdminRouteWithChildren
+  AuthenticatedCheckoutRoute: typeof AuthenticatedCheckoutRoute
   AuthenticatedContaRoute: typeof AuthenticatedContaRouteWithChildren
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAdminRoute: AuthenticatedAdminRouteWithChildren,
+  AuthenticatedCheckoutRoute: AuthenticatedCheckoutRoute,
   AuthenticatedContaRoute: AuthenticatedContaRouteWithChildren,
 }
 
