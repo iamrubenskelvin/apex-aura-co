@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import { Minus, Plus, ShoppingBag, Trash2, X } from "lucide-react";
 import { brl, pixPrice } from "@/data/products";
 import { useCart } from "./cart";
@@ -95,9 +96,9 @@ export function MiniCart() {
               <p className="text-xs text-primary">
                 {brl(pixPrice(subtotal))} no PIX (10% de desconto)
               </p>
-              <button className="btn-base btn-primary w-full px-6 py-4 text-sm">
+              <Link to="/checkout" onClick={() => setOpen(false)} className="btn-base btn-primary w-full px-6 py-4 text-sm">
                 Finalizar compra
-              </button>
+              </Link>
               <button
                 onClick={() => setOpen(false)}
                 className="btn-base btn-ghost-outline w-full px-6 py-3 text-sm"
