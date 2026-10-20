@@ -24,6 +24,9 @@ import { Route as ObjetivoSlugRouteImport } from './routes/objetivo.$slug'
 import { Route as ProdutosIndexRouteImport } from './routes/produtos.index'
 import { Route as ProdutosSlugRouteImport } from './routes/produtos.$slug'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
+import { Route as AuthenticatedAdminCuponsRouteImport } from './routes/_authenticated/admin.cupons'
+import { Route as AuthenticatedAdminExclusoesRouteImport } from './routes/_authenticated/admin.exclusoes'
+import { Route as AuthenticatedAdminPedidosRouteImport } from './routes/_authenticated/admin.pedidos'
 import { Route as AuthenticatedContaIndexRouteImport } from './routes/_authenticated/conta.index'
 import { Route as AuthenticatedContaAvaliacoesRouteImport } from './routes/_authenticated/conta.avaliacoes'
 import { Route as AuthenticatedContaCuponsRouteImport } from './routes/_authenticated/conta.cupons'
@@ -108,6 +111,24 @@ const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AuthenticatedAdminRoute,
 } as any)
+const AuthenticatedAdminCuponsRoute =
+  AuthenticatedAdminCuponsRouteImport.update({
+    id: '/cupons',
+    path: '/cupons',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminExclusoesRoute =
+  AuthenticatedAdminExclusoesRouteImport.update({
+    id: '/exclusoes',
+    path: '/exclusoes',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminPedidosRoute =
+  AuthenticatedAdminPedidosRouteImport.update({
+    id: '/pedidos',
+    path: '/pedidos',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
 const AuthenticatedContaIndexRoute = AuthenticatedContaIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -176,6 +197,9 @@ export interface FileRoutesByFullPath {
   '/objetivo/$slug': typeof ObjetivoSlugRoute
   '/produtos/$slug': typeof ProdutosSlugRoute
   '/produtos/': typeof ProdutosIndexRoute
+  '/admin/cupons': typeof AuthenticatedAdminCuponsRoute
+  '/admin/exclusoes': typeof AuthenticatedAdminExclusoesRoute
+  '/admin/pedidos': typeof AuthenticatedAdminPedidosRoute
   '/conta/avaliacoes': typeof AuthenticatedContaAvaliacoesRoute
   '/conta/cupons': typeof AuthenticatedContaCuponsRoute
   '/conta/enderecos': typeof AuthenticatedContaEnderecosRoute
@@ -199,6 +223,9 @@ export interface FileRoutesByTo {
   '/objetivo/$slug': typeof ObjetivoSlugRoute
   '/produtos/$slug': typeof ProdutosSlugRoute
   '/produtos': typeof ProdutosIndexRoute
+  '/admin/cupons': typeof AuthenticatedAdminCuponsRoute
+  '/admin/exclusoes': typeof AuthenticatedAdminExclusoesRoute
+  '/admin/pedidos': typeof AuthenticatedAdminPedidosRoute
   '/conta/avaliacoes': typeof AuthenticatedContaAvaliacoesRoute
   '/conta/cupons': typeof AuthenticatedContaCuponsRoute
   '/conta/enderecos': typeof AuthenticatedContaEnderecosRoute
@@ -226,6 +253,9 @@ export interface FileRoutesById {
   '/objetivo/$slug': typeof ObjetivoSlugRoute
   '/produtos/$slug': typeof ProdutosSlugRoute
   '/produtos/': typeof ProdutosIndexRoute
+  '/_authenticated/admin/cupons': typeof AuthenticatedAdminCuponsRoute
+  '/_authenticated/admin/exclusoes': typeof AuthenticatedAdminExclusoesRoute
+  '/_authenticated/admin/pedidos': typeof AuthenticatedAdminPedidosRoute
   '/_authenticated/conta/avaliacoes': typeof AuthenticatedContaAvaliacoesRoute
   '/_authenticated/conta/cupons': typeof AuthenticatedContaCuponsRoute
   '/_authenticated/conta/enderecos': typeof AuthenticatedContaEnderecosRoute
@@ -253,6 +283,9 @@ export interface FileRouteTypes {
     | '/objetivo/$slug'
     | '/produtos/$slug'
     | '/produtos/'
+    | '/admin/cupons'
+    | '/admin/exclusoes'
+    | '/admin/pedidos'
     | '/conta/avaliacoes'
     | '/conta/cupons'
     | '/conta/enderecos'
@@ -276,6 +309,9 @@ export interface FileRouteTypes {
     | '/objetivo/$slug'
     | '/produtos/$slug'
     | '/produtos'
+    | '/admin/cupons'
+    | '/admin/exclusoes'
+    | '/admin/pedidos'
     | '/conta/avaliacoes'
     | '/conta/cupons'
     | '/conta/enderecos'
@@ -302,6 +338,9 @@ export interface FileRouteTypes {
     | '/objetivo/$slug'
     | '/produtos/$slug'
     | '/produtos/'
+    | '/_authenticated/admin/cupons'
+    | '/_authenticated/admin/exclusoes'
+    | '/_authenticated/admin/pedidos'
     | '/_authenticated/conta/avaliacoes'
     | '/_authenticated/conta/cupons'
     | '/_authenticated/conta/enderecos'
@@ -435,6 +474,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
+    '/_authenticated/admin/cupons': {
+      id: '/_authenticated/admin/cupons'
+      path: '/cupons'
+      fullPath: '/admin/cupons'
+      preLoaderRoute: typeof AuthenticatedAdminCuponsRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/exclusoes': {
+      id: '/_authenticated/admin/exclusoes'
+      path: '/exclusoes'
+      fullPath: '/admin/exclusoes'
+      preLoaderRoute: typeof AuthenticatedAdminExclusoesRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/pedidos': {
+      id: '/_authenticated/admin/pedidos'
+      path: '/pedidos'
+      fullPath: '/admin/pedidos'
+      preLoaderRoute: typeof AuthenticatedAdminPedidosRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
     '/_authenticated/conta/': {
       id: '/_authenticated/conta/'
       path: '/'
@@ -502,11 +562,17 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedAdminRouteChildren {
+  AuthenticatedAdminCuponsRoute: typeof AuthenticatedAdminCuponsRoute
+  AuthenticatedAdminExclusoesRoute: typeof AuthenticatedAdminExclusoesRoute
+  AuthenticatedAdminPedidosRoute: typeof AuthenticatedAdminPedidosRoute
   AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
   AuthenticatedAdminProdutosIdRoute: typeof AuthenticatedAdminProdutosIdRoute
 }
 
 const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
+  AuthenticatedAdminCuponsRoute: AuthenticatedAdminCuponsRoute,
+  AuthenticatedAdminExclusoesRoute: AuthenticatedAdminExclusoesRoute,
+  AuthenticatedAdminPedidosRoute: AuthenticatedAdminPedidosRoute,
   AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
   AuthenticatedAdminProdutosIdRoute: AuthenticatedAdminProdutosIdRoute,
 }
