@@ -3,6 +3,7 @@ import { Link, type LinkProps } from "@tanstack/react-router";
 import { Heart, Menu, Search, ShoppingBag, User, X } from "lucide-react";
 import { useCart } from "./cart";
 import { SmartSearch } from "./SmartSearch";
+import { useSession } from "@/lib/session";
 
 type NavItem = { label: string; props: LinkProps };
 
@@ -18,6 +19,7 @@ const nav: NavItem[] = [
 
 export function Header() {
   const { count, wishlist, setOpen: setCartOpen } = useCart();
+  const { user } = useSession();
   const [open, setOpen] = useState(false);
   const [mobileSearch, setMobileSearch] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -106,13 +108,17 @@ export function Header() {
             >
               <Search className="h-5 w-5" />
             </button>
-            <button
-              className="hidden h-10 w-10 place-items-center rounded-full text-muted-foreground transition-all hover:scale-110 hover:bg-surface hover:text-foreground sm:grid"
-              aria-label="Minha conta"
+            <Link
+              to="/conta"
+              className="relative hidden h-10 w-10 place-items-center rounded-full text-muted-foreground transition-all hover:scale-110 hover:bg-surface hover:text-foreground sm:grid"
+              aria-label={user ? "Minha conta" : "Entrar"}
+              title={user ? "Minha conta" : "Entrar"}
             >
               <User className="h-5 w-5" />
-            </button>
-            <button
+              {user && <span className="absolute right-1.5 top-1.5 h-2 w-2 rounded-full bg-primary" />}
+            </Link>
+            <Link
+              to="/conta/favoritos"
               className="relative hidden h-10 w-10 place-items-center rounded-full text-muted-foreground transition-all hover:scale-110 hover:bg-surface hover:text-foreground sm:grid"
               aria-label={`Lista de desejos com ${wishlist.length} itens`}
             >
@@ -122,7 +128,7 @@ export function Header() {
                   {wishlist.length}
                 </span>
               )}
-            </button>
+            </Link>
             <button
               onClick={() => setCartOpen(true)}
               className="relative grid h-10 w-10 place-items-center rounded-full text-foreground transition-all hover:scale-110 hover:bg-surface"
@@ -166,6 +172,9 @@ export function Header() {
                 {item.label}
               </Link>
             ))}
+            <Link to="/conta" onClick={() => setOpen(false)} className="col-span-2 rounded-xl bg-surface px-4 py-3 text-sm font-medium hover:bg-surface-2">
+              {user ? "Minha conta" : "Entrar / Criar conta"}
+            </Link>
           </div>
         </div>
       )}

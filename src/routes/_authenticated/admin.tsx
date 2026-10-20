@@ -1,6 +1,6 @@
 import { createFileRoute, Link, Outlet, useNavigate } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { LogOut, Package, Store } from "lucide-react";
+import { LogOut, Package, ShoppingCart, Store, Ticket, UserX } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/_authenticated/admin")({
@@ -49,10 +49,32 @@ function AdminLayout() {
           <nav className="ml-4 flex gap-1 text-sm">
             <Link
               to="/admin"
+              activeOptions={{ exact: true }}
               className="flex items-center gap-2 rounded-lg px-3 py-2 text-muted-foreground hover:bg-surface-2 hover:text-foreground"
               activeProps={{ className: "bg-surface-2 text-foreground" }}
             >
               <Package className="h-4 w-4" /> Produtos
+            </Link>
+            <Link
+              to="/admin/pedidos"
+              className="flex items-center gap-2 rounded-lg px-3 py-2 text-muted-foreground hover:bg-surface-2 hover:text-foreground"
+              activeProps={{ className: "bg-surface-2 text-foreground" }}
+            >
+              <ShoppingCart className="h-4 w-4" /> <span className="hidden sm:inline">Pedidos</span>
+            </Link>
+            <Link
+              to="/admin/cupons"
+              className="flex items-center gap-2 rounded-lg px-3 py-2 text-muted-foreground hover:bg-surface-2 hover:text-foreground"
+              activeProps={{ className: "bg-surface-2 text-foreground" }}
+            >
+              <Ticket className="h-4 w-4" /> <span className="hidden sm:inline">Cupons</span>
+            </Link>
+            <Link
+              to="/admin/exclusoes"
+              className="flex items-center gap-2 rounded-lg px-3 py-2 text-muted-foreground hover:bg-surface-2 hover:text-foreground"
+              activeProps={{ className: "bg-surface-2 text-foreground" }}
+            >
+              <UserX className="h-4 w-4" /> <span className="hidden sm:inline">Exclusões</span>
             </Link>
           </nav>
           <div className="ml-auto flex items-center gap-2 text-sm">

@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSession } from "@/lib/session";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
@@ -46,6 +47,10 @@ function AuthPage() {
   const [password, setPassword] = useState("");
   const [busy, setBusy] = useState(false);
   const [sent, setSent] = useState(false);
+  const { user } = useSession();
+  useEffect(() => {
+    if (user) void goAfterLogin(navigate, redirect);
+  }, [user, navigate, redirect]);
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
