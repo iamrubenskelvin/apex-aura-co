@@ -42,9 +42,9 @@ function AdminLayout() {
     <div className="min-h-screen bg-background">
       <header className="border-b border-border bg-surface">
         <div className="mx-auto flex max-w-7xl items-center gap-4 px-5 py-3">
-          <Link to="/admin" className="text-display text-lg">
-            Forja<span className="text-primary">Nutri</span>
-            <span className="ml-2 text-xs font-medium text-muted-foreground">Painel</span>
+          <Link to="/admin" className="flex items-center gap-2" aria-label="RVGL Suplementos — painel">
+            <img src={logoAsset.url} alt="RVGL Suplementos" className="h-9 w-auto rounded-lg" />
+            <span className="text-xs font-medium text-muted-foreground">Painel</span>
           </Link>
           <nav className="ml-4 flex gap-1 text-sm">
             <Link

@@ -98,8 +98,8 @@ function AuthPage() {
   return (
     <main className="grid min-h-screen place-items-center bg-background px-5 py-10">
       <div className="w-full max-w-sm rounded-2xl border border-border bg-surface p-7">
-        <Link to="/" className="text-display text-xl">
-          Forja<span className="text-primary">Nutri</span>
+        <Link to="/" aria-label="RVGL Suplementos — início">
+          <img src={logoAsset.url} alt="RVGL Suplementos" className="h-16 w-auto rounded-xl" />
         </Link>
         <h1 className="mt-6 text-2xl font-bold">{mode === "entrar" ? "Entrar" : "Criar conta"}</h1>
         <p className="mt-1 text-sm text-muted-foreground">
