@@ -14,10 +14,10 @@ export const Route = createFileRoute("/auth")({
   },
   head: () => ({
     meta: [
-      { title: "Entrar ou criar conta — Forja Nutri" },
-      { name: "description", content: "Acesse sua conta Forja Nutri para acompanhar pedidos, favoritos e cupons." },
-      { property: "og:title", content: "Entrar ou criar conta — Forja Nutri" },
-      { property: "og:description", content: "Acesse sua conta Forja Nutri para acompanhar pedidos, favoritos e cupons." },
+      { title: "Entrar ou criar conta — RVGL Suplementos" },
+      { name: "description", content: "Acesse sua conta RVGL Suplementos para acompanhar pedidos, favoritos e cupons." },
+      { property: "og:title", content: "Entrar ou criar conta — RVGL Suplementos" },
+      { property: "og:description", content: "Acesse sua conta RVGL Suplementos para acompanhar pedidos, favoritos e cupons." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "robots", content: "noindex" },

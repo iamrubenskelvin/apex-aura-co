@@ -6,10 +6,10 @@ import { supabase } from "@/integrations/supabase/client";
 export const Route = createFileRoute("/_authenticated/admin")({
   head: () => ({
     meta: [
-      { title: "Painel — Forja Nutri" },
-      { name: "description", content: "Gerencie produtos, preços e estoque da Forja Nutri." },
-      { property: "og:title", content: "Painel — Forja Nutri" },
-      { property: "og:description", content: "Gerencie produtos, preços e estoque da Forja Nutri." },
+      { title: "Painel — RVGL Suplementos" },
+      { name: "description", content: "Gerencie produtos, preços e estoque da RVGL Suplementos." },
+      { property: "og:title", content: "Painel — RVGL Suplementos" },
+      { property: "og:description", content: "Gerencie produtos, preços e estoque da RVGL Suplementos." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "robots", content: "noindex" },

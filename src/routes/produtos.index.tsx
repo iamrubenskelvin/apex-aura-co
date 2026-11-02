@@ -6,7 +6,7 @@ import { CatalogView } from "@/components/catalog/CatalogView";
 import { validateCatalogSearch, type CatalogSearch } from "@/components/catalog/search-params";
 import { catalog } from "@/data/catalog";
 
-const title = "Todos os suplementos — Forja Nutri";
+const title = "Todos os suplementos — RVGL Suplementos";
 const description =
   "Catálogo completo de whey protein, creatina, pré-treino, vitaminas e acessórios com filtros por objetivo, marca, sabor e preço.";
 

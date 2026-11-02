@@ -36,14 +36,14 @@ export const Route = createFileRoute("/produtos/$slug")({
     if (!loaderData) {
       return {
         meta: [
-          { title: "Produto não encontrado — Forja Nutri" },
+          { title: "Produto não encontrado — RVGL Suplementos" },
           { name: "robots", content: "noindex" },
         ],
       };
     }
     const { product, detail } = loaderData;
     const url = `${SITE}/produtos/${params.slug}`;
-    const title = `${product.name} — ${product.brand} | Forja Nutri`;
+    const title = `${product.name} — ${product.brand} | RVGL Suplementos`;
     const description = `${product.name} por ${brl(product.price)}. ${
       detail.about.intro || `${product.category} original com laudo de pureza.`
     }`.slice(0, 158);

@@ -17,9 +17,9 @@ import { useAddresses } from "./conta.enderecos";
 export const Route = createFileRoute("/_authenticated/checkout")({
   head: () => ({
     meta: [
-      { title: "Finalizar compra — Forja Nutri" },
+      { title: "Finalizar compra — RVGL Suplementos" },
       { name: "description", content: "Confira endereço, pagamento e cupom para concluir seu pedido." },
-      { property: "og:title", content: "Finalizar compra — Forja Nutri" },
+      { property: "og:title", content: "Finalizar compra — RVGL Suplementos" },
       { property: "og:description", content: "Confira endereço, pagamento e cupom para concluir seu pedido." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },

@@ -8,10 +8,10 @@ import { supabase } from "@/integrations/supabase/client";
 export const Route = createFileRoute("/_authenticated/conta")({
   head: () => ({
     meta: [
-      { title: "Minha conta — Forja Nutri" },
-      { name: "description", content: "Pedidos, endereços, favoritos e cupons da sua conta Forja Nutri." },
-      { property: "og:title", content: "Minha conta — Forja Nutri" },
-      { property: "og:description", content: "Pedidos, endereços, favoritos e cupons da sua conta Forja Nutri." },
+      { title: "Minha conta — RVGL Suplementos" },
+      { name: "description", content: "Pedidos, endereços, favoritos e cupons da sua conta RVGL Suplementos." },
+      { property: "og:title", content: "Minha conta — RVGL Suplementos" },
+      { property: "og:description", content: "Pedidos, endereços, favoritos e cupons da sua conta RVGL Suplementos." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "robots", content: "noindex" },

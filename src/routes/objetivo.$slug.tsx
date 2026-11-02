@@ -23,10 +23,10 @@ export const Route = createFileRoute("/objetivo/$slug")({
   },
   head: ({ params, loaderData }) => {
     if (!loaderData) {
-      return { meta: [{ title: "Objetivo não encontrado — Forja Nutri" }, { name: "robots", content: "noindex" }] };
+      return { meta: [{ title: "Objetivo não encontrado — RVGL Suplementos" }, { name: "robots", content: "noindex" }] };
     }
     const { goal } = loaderData;
-    const title = `Suplementos para ${goal.name.toLowerCase()} — Forja Nutri`;
+    const title = `Suplementos para ${goal.name.toLowerCase()} — RVGL Suplementos`;
     const description = goal.description.slice(0, 158);
     const url = `${SITE}/objetivo/${params.slug}`;
     return {

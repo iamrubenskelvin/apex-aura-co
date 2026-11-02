@@ -6,10 +6,10 @@ import { supabase } from "@/integrations/supabase/client";
 export const Route = createFileRoute("/reset-password")({
   head: () => ({
     meta: [
-      { title: "Nova senha — Forja Nutri" },
-      { name: "description", content: "Crie uma nova senha para sua conta Forja Nutri." },
-      { property: "og:title", content: "Nova senha — Forja Nutri" },
-      { property: "og:description", content: "Crie uma nova senha para sua conta Forja Nutri." },
+      { title: "Nova senha — RVGL Suplementos" },
+      { name: "description", content: "Crie uma nova senha para sua conta RVGL Suplementos." },
+      { property: "og:title", content: "Nova senha — RVGL Suplementos" },
+      { property: "og:description", content: "Crie uma nova senha para sua conta RVGL Suplementos." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "robots", content: "noindex" },

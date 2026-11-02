@@ -1,5 +1,5 @@
 /**
- * FORJA NUTRI — camada de catálogo.
+ * RVGL SUPLEMENTOS — camada de catálogo.
  *
  * Toda a vitrine (catálogo, categorias, marcas, objetivos e busca) lê APENAS
  * deste módulo. Nenhuma página deve declarar produtos por conta própria.

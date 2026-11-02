@@ -58,7 +58,7 @@ export function Header() {
             scrolled ? "py-2" : "py-4"
           }`}
         >
-          <Link to="/" className="flex shrink-0 items-center gap-2" aria-label="Forja Nutri — início">
+          <Link to="/" className="flex shrink-0 items-center gap-2" aria-label="RVGL Suplementos — início">
             <svg
               viewBox="0 0 40 40"
               role="img"

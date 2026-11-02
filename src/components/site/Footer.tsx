@@ -3,7 +3,7 @@ import { Facebook, Instagram, Lock, ShieldCheck, Youtube } from "lucide-react";
 const columns = [
   {
     title: "Institucional",
-    links: ["Sobre a Forja Nutri", "Laudos de pureza", "Trabalhe conosco", "Blog"],
+    links: ["Sobre a RVGL Suplementos", "Laudos de pureza", "Trabalhe conosco", "Blog"],
   },
   { title: "Atendimento", links: ["Central de ajuda", "Rastrear pedido", "Trocas e devoluções", "Fretes e prazos"] },
   { title: "Minha Conta", links: ["Entrar", "Meus pedidos", "Lista de desejos", "Meus dados"] },
@@ -74,10 +74,10 @@ export function Footer() {
 
       <div className="border-t border-border px-5 py-8 text-center text-xs leading-relaxed text-muted-foreground lg:px-8">
         <p className="mx-auto max-w-3xl">
-          Forja Nutri Comércio de Suplementos LTDA · CNPJ 00.000.000/0001-00 · Fortaleza/CE. Os
+          RVGL Suplementos LTDA · CNPJ 00.000.000/0001-00 · Fortaleza/CE. Os
           produtos e informações deste site não substituem orientação médica ou nutricional.
         </p>
-        <p className="mt-3">© {new Date().getFullYear()} Forja Nutri. Todos os direitos reservados.</p>
+        <p className="mt-3">© {new Date().getFullYear()} RVGL Suplementos. Todos os direitos reservados.</p>
       </div>
     </footer>
   );
