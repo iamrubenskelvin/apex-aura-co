@@ -28,7 +28,7 @@ export const products: Product[] = [
   {
     id: "whey-iso",
     name: "Whey Isolate Pro 900g",
-    brand: "Forja Prime",
+    brand: "RVGL",
     category: "Whey Protein",
     tag: "Massa magra",
     price: 189.9,
@@ -44,7 +44,7 @@ export const products: Product[] = [
   {
     id: "creatina",
     name: "Creatina Monohidratada 300g",
-    brand: "Forja Prime",
+    brand: "RVGL",
     category: "Creatina",
     tag: "Força",
     price: 129.9,
@@ -75,7 +75,7 @@ export const products: Product[] = [
   {
     id: "bcaa",
     name: "BCAA 2:1:1 — 120 caps",
-    brand: "Forja Prime",
+    brand: "RVGL",
     category: "Aminoácidos",
     tag: "Recuperação",
     price: 89.9,
@@ -132,7 +132,7 @@ export const products: Product[] = [
   {
     id: "barra-proteica",
     name: "Barra Proteica Choco 12un",
-    brand: "Forja Prime",
+    brand: "RVGL",
     category: "Barras",
     tag: "Praticidade",
     price: 69.9,
@@ -163,7 +163,7 @@ export const categories = [
 ];
 
 export const brands = [
-  "Forja Prime",
+  "RVGL",
   "Titan Fuel",
   "Ignite Labs",
   "Vita Core",
