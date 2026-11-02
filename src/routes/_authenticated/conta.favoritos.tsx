@@ -1,3 +1,4 @@
+import { initialCatalogSearch } from "@/components/catalog/search-params";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { catalogById } from "@/data/catalog";
 import { useCart } from "@/components/site/cart";
@@ -17,7 +18,7 @@ function Page() {
         </div>
       ) : (
         <p className="text-sm text-muted-foreground">
-          Toque no coração dos produtos para salvá-los aqui. <Link to="/produtos" search={{}} className="text-primary">Ver produtos</Link>
+          Toque no coração dos produtos para salvá-los aqui. <Link to="/produtos" search={initialCatalogSearch} className="text-primary">Ver produtos</Link>
         </p>
       )}
     </Panel>

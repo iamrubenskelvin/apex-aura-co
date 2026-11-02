@@ -36,11 +36,11 @@ function Page() {
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
-    if (password !== confirm) return toast.error("As senhas não conferem.");
+    if (password !== confirm) { toast.error("As senhas não conferem."); return; }
     setBusy(true);
     const { error } = await supabase.auth.updateUser({ password });
     setBusy(false);
-    if (error) return toast.error("Link expirado ou inválido. Peça um novo.");
+    if (error) { toast.error("Link expirado ou inválido. Peça um novo."); return; }
     toast.success("Senha alterada!");
     navigate({ to: "/conta", replace: true });
   }

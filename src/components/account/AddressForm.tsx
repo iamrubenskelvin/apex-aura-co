@@ -57,7 +57,7 @@ export function AddressForm({
       ? await supabase.from("addresses").update(payload).eq("id", initial.id).select("id").single()
       : await supabase.from("addresses").insert(payload).select("id").single();
     setBusy(false);
-    if (res.error || !res.data) return toast.error("Não foi possível salvar o endereço.");
+    if (res.error || !res.data) { toast.error("Não foi possível salvar o endereço."); return; }
     toast.success("Endereço salvo!");
     onDone(res.data.id);
   }

@@ -115,7 +115,7 @@ function ReviewForm({
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
-    if (body.trim().length < 10) return toast.error("Conte um pouco mais (mínimo 10 caracteres).");
+    if (body.trim().length < 10) { toast.error("Conte um pouco mais (mínimo 10 caracteres)."); return; }
     setBusy(true);
     const { error } = await supabase.from("product_reviews").insert({
       product_id: product.product_id,
@@ -126,7 +126,7 @@ function ReviewForm({
       body: body.trim().slice(0, 2000),
     });
     setBusy(false);
-    if (error) return toast.error("Não foi possível enviar a avaliação.");
+    if (error) { toast.error("Não foi possível enviar a avaliação."); return; }
     toast.success("Obrigado pela avaliação!");
     onDone();
   }

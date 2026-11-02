@@ -33,7 +33,7 @@ function ProfilePage() {
 
   async function save(e: React.FormEvent) {
     e.preventDefault();
-    if (form.cpf && !isValidCpf(form.cpf)) return toast.error("CPF inválido.");
+    if (form.cpf && !isValidCpf(form.cpf)) { toast.error("CPF inválido."); return; }
     setBusy(true);
     const { error } = await supabase.from("profiles").upsert({
       id: user.id,
@@ -44,7 +44,7 @@ function ProfilePage() {
       updated_at: new Date().toISOString(),
     });
     setBusy(false);
-    if (error) return toast.error("Não foi possível salvar.");
+    if (error) { toast.error("Não foi possível salvar."); return; }
     toast.success("Dados salvos!");
     qc.invalidateQueries({ queryKey: ["profile", user.id] });
   }
