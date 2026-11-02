@@ -4,6 +4,7 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable";
+import logoAsset from "@/assets/rvgl-logo.jpg.asset.json";
 
 type AuthSearch = { redirect?: string };
 
@@ -14,10 +15,10 @@ export const Route = createFileRoute("/auth")({
   },
   head: () => ({
     meta: [
-      { title: "Entrar ou criar conta — Forja Nutri" },
-      { name: "description", content: "Acesse sua conta Forja Nutri para acompanhar pedidos, favoritos e cupons." },
-      { property: "og:title", content: "Entrar ou criar conta — Forja Nutri" },
-      { property: "og:description", content: "Acesse sua conta Forja Nutri para acompanhar pedidos, favoritos e cupons." },
+      { title: "Entrar ou criar conta — RVGL Suplementos" },
+      { name: "description", content: "Acesse sua conta RVGL Suplementos para acompanhar pedidos, favoritos e cupons." },
+      { property: "og:title", content: "Entrar ou criar conta — RVGL Suplementos" },
+      { property: "og:description", content: "Acesse sua conta RVGL Suplementos para acompanhar pedidos, favoritos e cupons." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "robots", content: "noindex" },
@@ -98,8 +99,8 @@ function AuthPage() {
   return (
     <main className="grid min-h-screen place-items-center bg-background px-5 py-10">
       <div className="w-full max-w-sm rounded-2xl border border-border bg-surface p-7">
-        <Link to="/" className="text-display text-xl">
-          Forja<span className="text-primary">Nutri</span>
+        <Link to="/" aria-label="RVGL Suplementos — início">
+          <img src={logoAsset.url} alt="RVGL Suplementos" className="h-16 w-auto rounded-xl" />
         </Link>
         <h1 className="mt-6 text-2xl font-bold">{mode === "entrar" ? "Entrar" : "Criar conta"}</h1>
         <p className="mt-1 text-sm text-muted-foreground">

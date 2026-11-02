@@ -23,10 +23,10 @@ export const Route = createFileRoute("/marca/$slug")({
   },
   head: ({ params, loaderData }) => {
     if (!loaderData) {
-      return { meta: [{ title: "Marca não encontrada — Forja Nutri" }, { name: "robots", content: "noindex" }] };
+      return { meta: [{ title: "Marca não encontrada — RVGL Suplementos" }, { name: "robots", content: "noindex" }] };
     }
     const { brand } = loaderData;
-    const title = `${brand.name} — Forja Nutri`;
+    const title = `${brand.name} — RVGL Suplementos`;
     const description = brand.description.slice(0, 158);
     const url = `${SITE}/marca/${params.slug}`;
     return {

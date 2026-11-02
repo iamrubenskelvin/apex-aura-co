@@ -24,11 +24,11 @@ export const Route = createFileRoute("/categoria/$slug")({
   head: ({ params, loaderData }) => {
     if (!loaderData) {
       return {
-        meta: [{ title: "Categoria não encontrada — Forja Nutri" }, { name: "robots", content: "noindex" }],
+        meta: [{ title: "Categoria não encontrada — RVGL Suplementos" }, { name: "robots", content: "noindex" }],
       };
     }
     const { category } = loaderData;
-    const title = `${category.name} — Forja Nutri`;
+    const title = `${category.name} — RVGL Suplementos`;
     const description = category.description.slice(0, 158);
     const url = `${SITE}/categoria/${params.slug}`;
     return {

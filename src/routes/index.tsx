@@ -21,13 +21,13 @@ import { Footer } from "@/components/site/Footer";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Forja Nutri — Suplementos Premium para Alta Performance" },
+      { title: "RVGL Suplementos — Suplementos Premium para Alta Performance" },
       {
         name: "description",
         content:
           "Whey, creatina, pré-treino e vitaminas com laudo de pureza. Envio em 24h, frete grátis acima de R$ 199 e até 12x sem juros.",
       },
-      { property: "og:title", content: "Forja Nutri — Suplementos Premium" },
+      { property: "og:title", content: "RVGL Suplementos — Suplementos Premium" },
       {
         property: "og:description",
         content:

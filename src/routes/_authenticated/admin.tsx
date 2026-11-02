@@ -2,14 +2,15 @@ import { createFileRoute, Link, Outlet, useNavigate } from "@tanstack/react-rout
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { LogOut, Package, ShoppingCart, Store, Ticket, UserX } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import logoAsset from "@/assets/rvgl-logo.jpg.asset.json";
 
 export const Route = createFileRoute("/_authenticated/admin")({
   head: () => ({
     meta: [
-      { title: "Painel — Forja Nutri" },
-      { name: "description", content: "Gerencie produtos, preços e estoque da Forja Nutri." },
-      { property: "og:title", content: "Painel — Forja Nutri" },
-      { property: "og:description", content: "Gerencie produtos, preços e estoque da Forja Nutri." },
+      { title: "Painel — RVGL Suplementos" },
+      { name: "description", content: "Gerencie produtos, preços e estoque da RVGL Suplementos." },
+      { property: "og:title", content: "Painel — RVGL Suplementos" },
+      { property: "og:description", content: "Gerencie produtos, preços e estoque da RVGL Suplementos." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "robots", content: "noindex" },
@@ -42,9 +43,9 @@ function AdminLayout() {
     <div className="min-h-screen bg-background">
       <header className="border-b border-border bg-surface">
         <div className="mx-auto flex max-w-7xl items-center gap-4 px-5 py-3">
-          <Link to="/admin" className="text-display text-lg">
-            Forja<span className="text-primary">Nutri</span>
-            <span className="ml-2 text-xs font-medium text-muted-foreground">Painel</span>
+          <Link to="/admin" className="flex items-center gap-2" aria-label="RVGL Suplementos — painel">
+            <img src={logoAsset.url} alt="RVGL Suplementos" className="h-9 w-auto rounded-lg" />
+            <span className="text-xs font-medium text-muted-foreground">Painel</span>
           </Link>
           <nav className="ml-4 flex gap-1 text-sm">
             <Link

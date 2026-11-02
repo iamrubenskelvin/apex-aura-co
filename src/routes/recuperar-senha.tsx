@@ -6,9 +6,9 @@ import { supabase } from "@/integrations/supabase/client";
 export const Route = createFileRoute("/recuperar-senha")({
   head: () => ({
     meta: [
-      { title: "Recuperar senha — Forja Nutri" },
+      { title: "Recuperar senha — RVGL Suplementos" },
       { name: "description", content: "Receba um link por e-mail para criar uma nova senha." },
-      { property: "og:title", content: "Recuperar senha — Forja Nutri" },
+      { property: "og:title", content: "Recuperar senha — RVGL Suplementos" },
       { property: "og:description", content: "Receba um link por e-mail para criar uma nova senha." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },

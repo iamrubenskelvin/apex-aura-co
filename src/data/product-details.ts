@@ -1,5 +1,5 @@
 /**
- * FORJA NUTRI — conteúdo editorial/comercial da página de produto.
+ * RVGL SUPLEMENTOS — conteúdo editorial/comercial da página de produto.
  *
  * IMPORTANTE: todo o conteúdo abaixo é DEMONSTRATIVO e existe apenas para
  * visualizar a interface. Cada campo é 1:1 com um campo do painel

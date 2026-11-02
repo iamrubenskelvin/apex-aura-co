@@ -4,6 +4,7 @@ import { Heart, Menu, Search, ShoppingBag, User, X } from "lucide-react";
 import { useCart } from "./cart";
 import { SmartSearch } from "./SmartSearch";
 import { useSession } from "@/lib/session";
+import logoAsset from "@/assets/rvgl-logo.jpg.asset.json";
 
 type NavItem = { label: string; props: LinkProps };
 
@@ -58,24 +59,12 @@ export function Header() {
             scrolled ? "py-2" : "py-4"
           }`}
         >
-          <Link to="/" className="flex shrink-0 items-center gap-2" aria-label="Forja Nutri — início">
-            <svg
-              viewBox="0 0 40 40"
-              role="img"
-              aria-hidden="true"
-              className={`shrink-0 transition-all duration-300 ${scrolled ? "h-8 w-8" : "h-9 w-9"}`}
-            >
-              <rect width="40" height="40" rx="12" fill="var(--primary)" />
-              <path
-                d="M13 29V11h15v4.6h-9.6v3.2H27v4.6h-8.6V29z"
-                fill="var(--primary-foreground)"
-              />
-            </svg>
-            <span
-              className={`text-display transition-all duration-300 ${scrolled ? "text-base sm:text-lg" : "text-lg sm:text-xl"}`}
-            >
-              Forja<span className="text-primary">Nutri</span>
-            </span>
+          <Link to="/" className="flex shrink-0 items-center gap-2" aria-label="RVGL Suplementos — início">
+            <img
+              src={logoAsset.url}
+              alt="RVGL Suplementos"
+              className={`w-auto shrink-0 rounded-lg transition-all duration-300 ${scrolled ? "h-9" : "h-11"}`}
+            />
           </Link>
 
           <nav

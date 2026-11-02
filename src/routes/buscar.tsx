@@ -12,10 +12,10 @@ export const Route = createFileRoute("/buscar")({
   validateSearch: validateCatalogSearch,
   head: ({ match }) => {
     const q = (match.search as { q?: string }).q ?? "";
-    const title = q ? `Resultados para "${q}" — Forja Nutri` : "Buscar suplementos — Forja Nutri";
+    const title = q ? `Resultados para "${q}" — RVGL Suplementos` : "Buscar suplementos — RVGL Suplementos";
     const description = q
-      ? `Veja os suplementos encontrados para "${q}" na Forja Nutri, com filtros por marca, objetivo, sabor e preço.`
-      : "Busque whey, creatina, pré-treino, vitaminas e acessórios no catálogo da Forja Nutri.";
+      ? `Veja os suplementos encontrados para "${q}" na RVGL Suplementos, com filtros por marca, objetivo, sabor e preço.`
+      : "Busque whey, creatina, pré-treino, vitaminas e acessórios no catálogo da RVGL Suplementos.";
     return {
       meta: [
         { title },
