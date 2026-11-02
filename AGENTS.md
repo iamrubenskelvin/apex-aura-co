@@ -10,3 +10,5 @@
 <!-- LOVABLE:END -->
 - Products live in the `products` table; root `beforeLoad` calls `ensureCatalog()` which hydrates the in-memory `catalog` array in place (30s cache) — keeps all storefront code synchronous while admin edits reach the shop.
 - Admin area lives under `src/routes/_authenticated/admin*`; access is the `admin` role in `user_roles` (first signup gets it via trigger), writes go through the browser client and RLS.
+- Customer accounts: profiles/addresses/wishlist/orders/coupons/reviews tables, all RLS owner-scoped; customer pages under `src/routes/_authenticated/conta*`. Orders are only created by the `createOrder` server fn (prices, stock, coupons recomputed server-side with `src/lib/pricing.ts`) — clients have no INSERT on orders.
+- Reviews require a delivered order containing the product (enforced in the RLS insert policy) to block fake reviews.
