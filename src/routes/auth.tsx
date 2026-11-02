@@ -4,6 +4,7 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable";
+import logoAsset from "@/assets/rvgl-logo.jpg.asset.json";
 
 type AuthSearch = { redirect?: string };
 

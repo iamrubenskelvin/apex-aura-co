@@ -2,6 +2,7 @@ import { createFileRoute, Link, Outlet, useNavigate } from "@tanstack/react-rout
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { LogOut, Package, ShoppingCart, Store, Ticket, UserX } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import logoAsset from "@/assets/rvgl-logo.jpg.asset.json";
 
 export const Route = createFileRoute("/_authenticated/admin")({
   head: () => ({

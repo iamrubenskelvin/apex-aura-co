@@ -4,6 +4,7 @@ import { Heart, Menu, Search, ShoppingBag, User, X } from "lucide-react";
 import { useCart } from "./cart";
 import { SmartSearch } from "./SmartSearch";
 import { useSession } from "@/lib/session";
+import logoAsset from "@/assets/rvgl-logo.jpg.asset.json";
 
 type NavItem = { label: string; props: LinkProps };
 
