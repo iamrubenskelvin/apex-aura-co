@@ -33,7 +33,6 @@ function Page() {
   );
 }
 
-type Row = NonNullable<ReturnType<typeof useQuery<unknown>>["data"]> & Record<string, never>;
 
 function OrderRow({ o }: { o: { id: string; number: number; status: string; total: number; created_at: string; customer_email: string; payment_method: string; tracking_code: string | null; tracking_url: string | null; order_items: { name: string; qty: number }[] } }) {
   const qc = useQueryClient();
@@ -72,4 +71,3 @@ function OrderRow({ o }: { o: { id: string; number: number; status: string; tota
     </li>
   );
 }
-export type { Row };

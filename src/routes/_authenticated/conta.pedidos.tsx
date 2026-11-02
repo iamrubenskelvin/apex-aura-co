@@ -1,3 +1,4 @@
+import { initialCatalogSearch } from "@/components/catalog/search-params";
 import { createFileRoute, Link, Outlet, useMatchRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
@@ -30,7 +31,7 @@ function OrdersPage() {
       ) : !q.data?.length ? (
         <div className="text-sm text-muted-foreground">
           Você ainda não fez pedidos.{" "}
-          <Link to="/produtos" search={{}} className="text-primary">Ver produtos</Link>
+          <Link to="/produtos" search={initialCatalogSearch} className="text-primary">Ver produtos</Link>
         </div>
       ) : (
         <ul className="divide-y divide-border">

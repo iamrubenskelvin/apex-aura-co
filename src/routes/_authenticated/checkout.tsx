@@ -1,3 +1,4 @@
+import { initialCatalogSearch } from "@/components/catalog/search-params";
 import { useEffect, useMemo, useState } from "react";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
@@ -59,20 +60,20 @@ function Checkout() {
     const c = code.trim().toUpperCase();
     if (!c) return;
     const { data } = await supabase.from("coupons").select("*").eq("code", c).maybeSingle();
-    if (!data) return toast.error("Cupom não encontrado.");
+    if (!data) { toast.error("Cupom não encontrado."); return; }
     const valid = (history.data ?? []).filter((o) => o.status !== "cancelado");
     const problem = couponProblem(data, {
       subtotal,
       previousOrders: valid.length,
       usesOfThisCoupon: valid.filter((o) => o.coupon_code === data.code).length,
     });
-    if (problem) return toast.error(problem);
+    if (problem) { toast.error(problem); return; }
     setCoupon(data);
     toast.success("Cupom aplicado!");
   }
 
   async function submit() {
-    if (!addressId) return toast.error("Escolha um endereço de entrega.");
+    if (!addressId) { toast.error("Escolha um endereço de entrega."); return; }
     setBusy(true);
     try {
       const res = await placeOrder({
@@ -100,7 +101,7 @@ function Checkout() {
         <h1 className="text-display text-3xl">Finalizar compra</h1>
         {lines.length === 0 ? (
           <p className="mt-6 text-muted-foreground">
-            Seu carrinho está vazio. <Link to="/produtos" search={{}} className="text-primary">Ver produtos</Link>
+            Seu carrinho está vazio. <Link to="/produtos" search={initialCatalogSearch} className="text-primary">Ver produtos</Link>
           </p>
         ) : (
           <div className="mt-6 grid gap-6 lg:grid-cols-[minmax(0,1fr)_360px]">

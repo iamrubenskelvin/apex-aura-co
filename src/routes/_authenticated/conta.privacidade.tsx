@@ -26,7 +26,7 @@ function Page() {
 
   async function toggleNotify(v: boolean) {
     const { error } = await supabase.from("profiles").update({ email_notifications: v }).eq("id", user.id);
-    if (error) return toast.error("Não foi possível salvar.");
+    if (error) { toast.error("Não foi possível salvar."); return; }
     qc.invalidateQueries({ queryKey: ["privacy", user.id] });
   }
 
@@ -35,7 +35,7 @@ function Page() {
     const { error } = await supabase
       .from("account_deletion_requests")
       .insert({ user_id: user.id, email: user.email ?? "", reason: reason.trim().slice(0, 500) });
-    if (error) return toast.error("Não foi possível registrar o pedido.");
+    if (error) { toast.error("Não foi possível registrar o pedido."); return; }
     toast.success("Pedido de exclusão registrado.");
     await qc.cancelQueries();
     qc.clear();
