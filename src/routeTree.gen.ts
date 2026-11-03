@@ -34,6 +34,7 @@ import { Route as AuthenticatedContaEnderecosRouteImport } from './routes/_authe
 import { Route as AuthenticatedContaFavoritosRouteImport } from './routes/_authenticated/conta.favoritos'
 import { Route as AuthenticatedContaPedidosRouteImport } from './routes/_authenticated/conta.pedidos'
 import { Route as AuthenticatedContaPrivacidadeRouteImport } from './routes/_authenticated/conta.privacidade'
+import { Route as ApiPublicStripeWebhookRouteImport } from './routes/api/public/stripe-webhook'
 import { Route as AuthenticatedAdminProdutosIdRouteImport } from './routes/_authenticated/admin.produtos.$id'
 import { Route as AuthenticatedContaPedidosIdRouteImport } from './routes/_authenticated/conta.pedidos.$id'
 
@@ -170,6 +171,11 @@ const AuthenticatedContaPrivacidadeRoute =
     path: '/privacidade',
     getParentRoute: () => AuthenticatedContaRoute,
   } as any)
+const ApiPublicStripeWebhookRoute = ApiPublicStripeWebhookRouteImport.update({
+  id: '/api/public/stripe-webhook',
+  path: '/api/public/stripe-webhook',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthenticatedAdminProdutosIdRoute =
   AuthenticatedAdminProdutosIdRouteImport.update({
     id: '/produtos/$id',
@@ -206,6 +212,7 @@ export interface FileRoutesByFullPath {
   '/conta/favoritos': typeof AuthenticatedContaFavoritosRoute
   '/conta/pedidos': typeof AuthenticatedContaPedidosRouteWithChildren
   '/conta/privacidade': typeof AuthenticatedContaPrivacidadeRoute
+  '/api/public/stripe-webhook': typeof ApiPublicStripeWebhookRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
   '/conta/': typeof AuthenticatedContaIndexRoute
   '/admin/produtos/$id': typeof AuthenticatedAdminProdutosIdRoute
@@ -232,6 +239,7 @@ export interface FileRoutesByTo {
   '/conta/favoritos': typeof AuthenticatedContaFavoritosRoute
   '/conta/pedidos': typeof AuthenticatedContaPedidosRouteWithChildren
   '/conta/privacidade': typeof AuthenticatedContaPrivacidadeRoute
+  '/api/public/stripe-webhook': typeof ApiPublicStripeWebhookRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
   '/conta': typeof AuthenticatedContaIndexRoute
   '/admin/produtos/$id': typeof AuthenticatedAdminProdutosIdRoute
@@ -262,6 +270,7 @@ export interface FileRoutesById {
   '/_authenticated/conta/favoritos': typeof AuthenticatedContaFavoritosRoute
   '/_authenticated/conta/pedidos': typeof AuthenticatedContaPedidosRouteWithChildren
   '/_authenticated/conta/privacidade': typeof AuthenticatedContaPrivacidadeRoute
+  '/api/public/stripe-webhook': typeof ApiPublicStripeWebhookRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/_authenticated/conta/': typeof AuthenticatedContaIndexRoute
   '/_authenticated/admin/produtos/$id': typeof AuthenticatedAdminProdutosIdRoute
@@ -292,6 +301,7 @@ export interface FileRouteTypes {
     | '/conta/favoritos'
     | '/conta/pedidos'
     | '/conta/privacidade'
+    | '/api/public/stripe-webhook'
     | '/admin/'
     | '/conta/'
     | '/admin/produtos/$id'
@@ -318,6 +328,7 @@ export interface FileRouteTypes {
     | '/conta/favoritos'
     | '/conta/pedidos'
     | '/conta/privacidade'
+    | '/api/public/stripe-webhook'
     | '/admin'
     | '/conta'
     | '/admin/produtos/$id'
@@ -347,6 +358,7 @@ export interface FileRouteTypes {
     | '/_authenticated/conta/favoritos'
     | '/_authenticated/conta/pedidos'
     | '/_authenticated/conta/privacidade'
+    | '/api/public/stripe-webhook'
     | '/_authenticated/admin/'
     | '/_authenticated/conta/'
     | '/_authenticated/admin/produtos/$id'
@@ -365,6 +377,7 @@ export interface RootRouteChildren {
   ObjetivoSlugRoute: typeof ObjetivoSlugRoute
   ProdutosSlugRoute: typeof ProdutosSlugRoute
   ProdutosIndexRoute: typeof ProdutosIndexRoute
+  ApiPublicStripeWebhookRoute: typeof ApiPublicStripeWebhookRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -544,6 +557,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedContaPrivacidadeRouteImport
       parentRoute: typeof AuthenticatedContaRoute
     }
+    '/api/public/stripe-webhook': {
+      id: '/api/public/stripe-webhook'
+      path: '/api/public/stripe-webhook'
+      fullPath: '/api/public/stripe-webhook'
+      preLoaderRoute: typeof ApiPublicStripeWebhookRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authenticated/admin/produtos/$id': {
       id: '/_authenticated/admin/produtos/$id'
       path: '/produtos/$id'
@@ -644,6 +664,7 @@ const rootRouteChildren: RootRouteChildren = {
   ObjetivoSlugRoute: ObjetivoSlugRoute,
   ProdutosSlugRoute: ProdutosSlugRoute,
   ProdutosIndexRoute: ProdutosIndexRoute,
+  ApiPublicStripeWebhookRoute: ApiPublicStripeWebhookRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

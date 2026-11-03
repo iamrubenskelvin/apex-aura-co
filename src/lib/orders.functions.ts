@@ -2,6 +2,7 @@ import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { resolveImage } from "@/data/catalog";
 import { couponDiscount, couponProblem, orderTotals } from "@/lib/pricing";
+import { createCheckoutSession, type StripePayment } from "@/lib/stripe";
 
 type OrderInput = {
   items: { productId: string; qty: number; price: number; variant?: string | undefined }[];
@@ -134,3 +135,53 @@ export const processAccountDeletion = createServerFn({ method: "POST" })
       .eq("id", req.id);
     return { ok: true };
   });
+
+/**
+ * Abre a cobrança online de um pedido já registrado.
+ *
+ * O valor cobrado é o total gravado no pedido — o cliente não envia preço.
+ * O endereço de volta é o do próprio site, lido da requisição no servidor.
+ */
+export const startPayment = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((i: { orderId: string }) => {
+    if (typeof i?.orderId !== "string" || i.orderId.length < 8) throw new Error("Pedido inválido.");
+    return { orderId: i.orderId };
+  })
+  .handler(async ({ data, context }) => {
+    const { supabase } = context;
+    const { data: order } = await supabase
+      .from("orders")
+      .select("id, number, status, total, payment_method, customer_email")
+      .eq("id", data.orderId)
+      .maybeSingle();
+    if (!order) throw new Error("Pedido não encontrado.");
+    if (order.status !== "recebido") return { url: null as string | null };
+
+    const payment = order.payment_method as StripePayment;
+    if (!["pix", "cartao", "boleto"].includes(payment)) return { url: null as string | null };
+
+    const { data: items } = await supabase.from("order_items").select("name, qty").eq("order_id", order.id);
+    const description = (items ?? []).map((it) => `${it.qty}× ${it.name}`).join(", ");
+
+    const { getRequest } = await import("@tanstack/react-start/server");
+    const origin = new URL(getRequest().url).origin;
+    const back = `${origin}/conta/pedidos/${order.id}`;
+
+    const session = await createCheckoutSession({
+      orderId: order.id,
+      orderNumber: order.number,
+      total: Number(order.total),
+      payment,
+      email: order.customer_email,
+      description,
+      successUrl: `${back}?pgto=ok`,
+      cancelUrl: `${back}?pgto=pendente`,
+    });
+
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    await supabaseAdmin.from("orders").update({ stripe_session_id: session.id }).eq("id", order.id);
+
+    return { url: session.url };
+  });
+

@@ -8,7 +8,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Header } from "@/components/site/Header";
 import { brl } from "@/data/products";
 import { useCart } from "@/components/site/cart";
-import { createOrder } from "@/lib/orders.functions";
+import { createOrder, startPayment } from "@/lib/orders.functions";
 import { couponDiscount, couponProblem, orderTotals } from "@/lib/pricing";
 import { inputCls, Panel } from "@/components/account/shared";
 import { AddressForm, formatAddress } from "@/components/account/AddressForm";
@@ -37,6 +37,7 @@ function Checkout() {
   const { lines, subtotal, remove } = useCart();
   const addresses = useAddresses(user.id);
   const placeOrder = useServerFn(createOrder);
+  const payOrder = useServerFn(startPayment);
   const [addressId, setAddressId] = useState<string>("");
   const [adding, setAdding] = useState(false);
   const [payment, setPayment] = useState<"pix" | "cartao" | "boleto">("pix");
@@ -85,6 +86,15 @@ function Checkout() {
         },
       });
       lines.forEach((l) => remove(l.id));
+      try {
+        const pay = await payOrder({ data: { orderId: res.id } });
+        if (pay.url) {
+          window.location.href = pay.url;
+          return;
+        }
+      } catch (e) {
+        toast.warning(e instanceof Error ? e.message : "Não foi possível abrir o pagamento online.");
+      }
       toast.success(`Pedido #${res.number} recebido!`);
       navigate({ to: "/conta/pedidos/$id", params: { id: res.id }, replace: true });
     } catch (e) {
@@ -144,7 +154,7 @@ function Checkout() {
                   ))}
                 </div>
                 <p className="mt-3 text-xs text-muted-foreground">
-                  Após o pedido, nossa equipe confirma o pagamento e você acompanha tudo em “Meus pedidos”.
+                  Você é levado ao ambiente seguro de pagamento e volta para a loja assim que concluir.
                 </p>
               </Panel>
             </div>
@@ -174,7 +184,7 @@ function Checkout() {
                 <div className="flex justify-between pt-2 text-lg font-bold"><dt>Total</dt><dd>{brl(totals.total)}</dd></div>
               </dl>
               <button disabled={busy || adding} onClick={submit} className="btn-base btn-primary w-full px-6 py-4 text-sm disabled:opacity-60">
-                {busy ? "Enviando…" : "Confirmar pedido"}
+                {busy ? "Preparando pagamento…" : "Confirmar pedido e pagar"}
               </button>
             </aside>
           </div>
