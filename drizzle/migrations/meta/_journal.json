@@ -29,6 +29,13 @@
       "when": 1793734631865,
       "tag": "0003_grant_admin_to_owner",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1793735790921,
+      "tag": "0004_add_stripe_to_orders",
+      "breakpoints": true
     }
   ]
 }

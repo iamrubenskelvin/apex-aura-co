@@ -187,6 +187,8 @@ export type Database = {
           shipped_at: string | null
           shipping: number
           status: string
+          stripe_payment_intent: string | null
+          stripe_session_id: string | null
           subtotal: number
           total: number
           tracking_code: string | null
@@ -208,6 +210,8 @@ export type Database = {
           shipped_at?: string | null
           shipping?: number
           status?: string
+          stripe_payment_intent?: string | null
+          stripe_session_id?: string | null
           subtotal: number
           total: number
           tracking_code?: string | null
@@ -229,6 +233,8 @@ export type Database = {
           shipped_at?: string | null
           shipping?: number
           status?: string
+          stripe_payment_intent?: string | null
+          stripe_session_id?: string | null
           subtotal?: number
           total?: number
           tracking_code?: string | null
