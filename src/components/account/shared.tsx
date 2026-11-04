@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 export const ORDER_STEPS = ["recebido", "aprovado", "enviado", "entregue"] as const;
 
 export const statusLabel: Record<string, string> = {
-  recebido: "Recebido",
+  recebido: "Aguardando pagamento",
   aprovado: "Aprovado",
   enviado: "Enviado",
   entregue: "Entregue",
