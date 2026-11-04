@@ -14,8 +14,11 @@
 - [x] Criar cobrança PIX/cartão/boleto a partir do pedido e levar o cliente para pagar
 - [x] Aviso automático do Stripe aprovando o pedido pago
 - [x] Botão "Pagar agora" e avisos de pago/não concluído na página do pedido
-- [ ] Chave secreta da conta Stripe (sk_test_...) salva — a enviada até agora é a pública (pk_test_...)
-- [ ] Endereço do aviso (webhook) e chave de assinatura configurados no Stripe
+- [x] Chave secreta da conta Stripe salva
+- [x] Aviso automático criado no Stripe (endereço + eventos de pagamento)
+- [ ] Chave de assinatura do aviso (whsec_...) salva na loja — o dono copia do painel do Stripe
+- [ ] PIX e boleto ativados nas configurações de pagamento do Stripe (hoje só cartão aparece)
+- [ ] Publicar a loja para o Stripe conseguir avisar (o endereço público ainda responde 404)
 
 ## Depois
 - Criar categorias, marcas e objetivos pelo painel
