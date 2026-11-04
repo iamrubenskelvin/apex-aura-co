@@ -1,18 +1,31 @@
+import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
 import { toast } from "sonner";
 import { Check, ExternalLink } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { brl } from "@/data/products";
 import { catalogById } from "@/data/catalog";
 import { useCart } from "@/components/site/cart";
+import { startPayment } from "@/lib/orders.functions";
 import { fmtDate, ORDER_STEPS, Panel, paymentLabel, statusLabel, StatusPill } from "@/components/account/shared";
 
-export const Route = createFileRoute("/_authenticated/conta/pedidos/$id")({ component: OrderDetail });
+export const Route = createFileRoute("/_authenticated/conta/pedidos/$id")({
+  validateSearch: (s: Record<string, unknown>) => {
+    const out: { pgto?: string } = {};
+    if (typeof s["pgto"] === "string") out.pgto = s["pgto"];
+    return out;
+  },
+  component: OrderDetail,
+});
 
 function OrderDetail() {
   const { id } = Route.useParams();
+  const { pgto } = Route.useSearch();
   const { add, setOpen } = useCart();
+  const payOrder = useServerFn(startPayment);
+  const [paying, setPaying] = useState(false);
   const q = useQuery({
     queryKey: ["order", id],
     queryFn: async () => {
@@ -44,9 +57,47 @@ function OrderDetail() {
     } else toast.error("Esses produtos não estão disponíveis agora.");
   }
 
+  async function payNow() {
+    setPaying(true);
+    try {
+      const res = await payOrder({ data: { orderId: id } });
+      if (res.url) {
+        window.location.href = res.url;
+        return;
+      }
+      toast.error("Este pedido não pode ser pago online.");
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : "Não foi possível abrir o pagamento.");
+    } finally {
+      setPaying(false);
+    }
+  }
+
   return (
     <>
-      <Panel title={`Pedido #${o.number}`} action={<StatusPill status={o.status} />}>
+      {pgto === "ok" && (
+        <div className="mb-4 rounded-xl border border-primary/40 bg-primary/10 p-4 text-sm">
+          Pagamento confirmado. Assim que seu pedido for separado, você acompanha tudo aqui.
+        </div>
+      )}
+      {pgto === "pendente" && (
+        <div className="mb-4 rounded-xl border border-border bg-surface-2 p-4 text-sm">
+          Você voltou sem concluir o pagamento. O pedido continua guardado — use “Pagar agora” para tentar de novo.
+        </div>
+      )}
+      <Panel
+        title={`Pedido #${o.number}`}
+        action={
+          <div className="flex items-center gap-3">
+            {o.status === "recebido" && (
+              <button onClick={payNow} disabled={paying} className="btn-base btn-primary px-4 py-2 text-sm disabled:opacity-60">
+                {paying ? "Abrindo…" : "Pagar agora"}
+              </button>
+            )}
+            <StatusPill status={o.status} />
+          </div>
+        }
+      >
         <p className="text-sm text-muted-foreground">Feito em {fmtDate(o.created_at)} · {paymentLabel[o.payment_method] ?? o.payment_method}</p>
         {o.status === "cancelado" ? (
           <p className="mt-4 text-sm text-destructive">Este pedido foi cancelado.</p>
