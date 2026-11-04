@@ -34,10 +34,10 @@ export const Route = createFileRoute("/api/public/stripe-webhook")({
           metadata?: Record<string, string>;
         };
         const type = event.type ?? "";
-        const sessionId = type.startsWith("payment_intent") ? obj.metadata?.session_id : obj.id;
+        const sessionId = type.startsWith("payment_intent") ? obj.metadata?.["session_id"] : obj.id;
 
         if (type === "checkout.session.completed" || type === "checkout.session.async_payment_succeeded" || type === "payment_intent.succeeded") {
-          await markPaid(sessionId, obj.client_reference_id || obj.metadata?.order_id, obj.payment_intent ?? null);
+          await markPaid(sessionId, obj.client_reference_id || obj.metadata?.["order_id"], obj.payment_intent ?? null);
         }
 
         return Response.json({ received: true });

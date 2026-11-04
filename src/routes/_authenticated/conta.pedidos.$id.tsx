@@ -12,7 +12,9 @@ import { startPayment } from "@/lib/orders.functions";
 import { fmtDate, ORDER_STEPS, Panel, paymentLabel, statusLabel, StatusPill } from "@/components/account/shared";
 
 export const Route = createFileRoute("/_authenticated/conta/pedidos/$id")({
-  validateSearch: (s: Record<string, unknown>) => ({ pgto: typeof s.pgto === "string" ? s.pgto : "" }),
+  validateSearch: (s: Record<string, unknown>): { pgto?: string } => ({
+    pgto: typeof s["pgto"] === "string" ? s["pgto"] : undefined,
+  }),
   component: OrderDetail,
 });
 
