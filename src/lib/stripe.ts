@@ -10,8 +10,6 @@ const STRIPE_API = "https://api.stripe.com/v1";
 
 export type StripePayment = "pix" | "cartao" | "boleto";
 
-const METHOD_TYPE: Record<StripePayment, string> = { pix: "pix", cartao: "card", boleto: "boleto" };
-
 function stripeKey(): string {
   const key = process.env["STRIPE_SECRET_KEY"];
   if (!key) throw new Error("Pagamento online ainda não está ativado nesta loja.");
@@ -61,7 +59,6 @@ export async function createCheckoutSession(input: CheckoutInput): Promise<Check
 
   const session = await stripeForm<{ id: string; url: string | null; payment_intent: string | null }>("/checkout/sessions", {
     mode: "payment",
-    "payment_method_types[0]": METHOD_TYPE[input.payment] ?? "card",
     "line_items[0][quantity]": 1,
     "line_items[0][price_data][currency]": "brl",
     "line_items[0][price_data][unit_amount]": cents,
@@ -70,6 +67,7 @@ export async function createCheckoutSession(input: CheckoutInput): Promise<Check
     client_reference_id: input.orderId,
     "metadata[order_id]": input.orderId,
     "metadata[number]": String(input.orderNumber),
+    "metadata[payment]": input.payment,
     customer_email: input.email ?? undefined,
     success_url: input.successUrl,
     cancel_url: input.cancelUrl,
